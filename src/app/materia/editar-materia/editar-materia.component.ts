@@ -1,39 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceProfesorService } from '../service-profesor.service';
+import { ServiceMateriaService } from '../service-materia.service';
 import swal from 'sweetalert2';
-import { PipeProfesorPipe } from '../pipe-profesor.pipe';
+import { FilterMateriaPipe } from '../filter-materia.pipe';
+
 
 @Component({
-  selector: 'app-editar-profesor',
-  templateUrl: './editar-profesor.component.html',
-  styleUrls: ['./editar-profesor.component.css']
+  selector: 'app-editar-materia',
+  templateUrl: './editar-materia.component.html',
+  styleUrls: ['./editar-materia.component.css']
 })
-export class EditarProfesorComponent implements OnInit {
+export class EditarMateriaComponent implements OnInit {
 
   public datos;
   public data;
   public title;
-  public profesor;
+  public materia;
   public abrir;
   public errDatos;
   public loading;
-  public selectProf;
+  public select;
   public filter;
+   public cursoAno;
+  public anoCurso;
 
-
-  constructor(private serviceProfesorService: ServiceProfesorService) {
+  constructor(private serviceMateriaService: ServiceMateriaService ) {
+    this.materia = {};
     this.title = 'de Profesor';
-    this.profesor = {};
-    this.getProfesor();
+    this.getMateria();
     this.filter = {};
+    this.anoCurso = this.serviceMateriaService.anoCurso;
+   }
 
-  }
+   selectAno(data) {
+     for (let i = 0; i < this.anoCurso.length; i++) {
+        if (this.anoCurso[i].nivel === data) {
+          this.cursoAno = this.anoCurso[i].cuatrimestre;
+        }
+     }
+   }
 
-  getProfesor() {
+    getMateria() {
     this.loading = true;
-    this.serviceProfesorService.getProfesor()
+    this.serviceMateriaService.getMateria()
     .subscribe(res => {
-        this.selectProf = res.json();
+        this.select = res.json();
         this.loading = false;
       },
       error => {
@@ -44,11 +54,10 @@ export class EditarProfesorComponent implements OnInit {
       });
   }
 
-
-  clickEliminar(data) {
+    clickEliminar(data) {
     swal({
       title: 'Eliminar',
-      text: 'Estas Seguro de Eliminar al Profesor ' + data.nombre + ' ' + data.apellido,
+      text: 'Estas Seguro de Eliminar la Materia: ' + data.nombre + ' ' + data.apellido,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -57,11 +66,11 @@ export class EditarProfesorComponent implements OnInit {
     }).then((result) => {
       if (result) {
         this.loading = true;
-        this.serviceProfesorService.eliminar(data).subscribe(
+        this.serviceMateriaService.eliminar(data).subscribe(
           res => {
             this.datos = res.json();
             this.limpiar();
-            this.getProfesor();
+            this.getMateria();
             swal(this.datos.nombre, this.datos.message, 'success');
             this.loading = false;
           },
@@ -75,27 +84,9 @@ export class EditarProfesorComponent implements OnInit {
     });
   }
 
-
-  clickEdit(data: any) {
-    this.profesor = data;
-    this.abrir = true;
-    this.title = 'Editar Informacion';
-  }
-
-  limpiar() {
-    this.profesor = {};
-    this.abrir = false;
-    this.title = 'de Profesor';
-  }
-
-  volver() {
-    this.abrir = false;
-    this.profesor = {};
-  }
-
   editar(data) {
     this.loading = true;
-    this.serviceProfesorService.editar(data)
+    this.serviceMateriaService.editar(data)
     .subscribe( res => {
         this.datos = res.json();
         this.limpiar();
@@ -110,6 +101,26 @@ export class EditarProfesorComponent implements OnInit {
       });
 
   }
+
+
+    clickEdit(data: any) {
+    this.materia = data;
+    this.selectAno(this.materia.nivel);
+    this.abrir = true;
+    this.title = 'Editar Informacion';
+  }
+
+  limpiar() {
+    this.materia = {};
+    this.abrir = false;
+    this.title = 'de Materia';
+  }
+
+  volver() {
+    this.abrir = false;
+    this.materia = {};
+  }
+
 
   ngOnInit() {
   }

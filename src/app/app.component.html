@@ -183,15 +183,19 @@
                         <a routerLink="/Dashboard">
                             <i class="icon-home"></i>Dashboard</a>
                     </li>
-                    <li>
-                        <a href="#dashvariants" aria-expanded="false" data-toggle="collapse" >
+                    <li class="">
+                        <a routerLink="/Inscripcion">
+                            <i class="icon-list"></i>Inscripcion</a>
+                    </li>
+                    <li [hidden]="datos.nivel !== 'ADMIN'">
+                        <a href="#dashvariants" aria-expanded="false" data-toggle="collapse">
                             <i class="icon-user"></i>Usuario </a>
                         <ul id="dashvariants" class="collapse list-unstyled">
                             <li>
                                 <a routerLink="Usuario/Registrar"><i class="icon-list"></i>Registro</a>
                             </li>
                             <li>
-                                <a routerLink="Usuario/Eliminar"> <i class="icon-padnote"></i>Editar</a>
+                                <a routerLink="Usuario/Eliminar"> <i class="fa fa-refresh"></i>Editar</a>
                             </li>
                         </ul>
                     </li>
@@ -203,7 +207,7 @@
                                 <a routerLink="Profesor/Registrar"> <i class="icon-list"></i>Registro</a>
                             </li>
                             <li>
-                                <a routerLink="Profesor/Editar"> <i class="icon-padnote"></i> Editar</a>
+                                <a routerLink="Profesor/Editar"><i class="fa fa-refresh"></i>Editar</a>
                             </li>
                         </ul>
                     </li>
@@ -215,26 +219,24 @@
                                 <a routerLink="Alumno/Registrar"> <i class="icon-list"></i> Registro</a>
                             </li>
                             <li>
-                                <a routerLink="Alumno/Editar"> <i class="icon-padnote"></i>Editar</a>
+                                <a routerLink="Alumno/Editar"> <i class="fa fa-refresh"></i>Editar</a>
                             </li>
                         </ul>
                     </li>
+
                     <li>
-                        <a href="tables.html">
-                            <i class="icon-grid"></i>Tables </a>
+                        <a href="#Materia" aria-expanded="false" data-toggle="collapse">
+                            <i class="fa fa-book"></i>Materia </a>
+                        <ul id="Materia" class="collapse list-unstyled">
+                            <li>
+                                <a routerLink="Materia/Registrar"> <i class="icon-list"></i> Registro</a>
+                            </li>
+                            <li>
+                                <a routerLink="Materia/Editar"> <i class="fa fa-refresh"></i>Editar</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="charts.html">
-                            <i class="fa fa-bar-chart"></i>Charts </a>
-                    </li>
-                    <li>
-                        <a href="forms.html">
-                            <i class="icon-padnote"></i>Forms </a>
-                    </li>
-                    <li>
-                        <a href="login.html">
-                            <i class="icon-interface-windows"></i>Login Page</a>
-                    </li>
+
                 </ul>
             </nav>
             <div class="content-inner">

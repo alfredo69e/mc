@@ -1,0 +1,65 @@
+<ngx-loading [show]='loading' [config]="{ backdropBorderRadius: '14px', fullScreenBackdrop: true }"></ngx-loading>
+
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Materia</h2>
+    </div>
+</header>
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a>Materia</a>
+        </li>
+        <li class="breadcrumb-item active">Registro</li>
+    </ul>
+</div>
+
+<!-- Forms Section-->
+<section class="forms">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Basic Form-->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">Formulario de Materia</h3>
+                    </div>
+                    <div class="card-body">
+                        <form #formForm="ngForm">
+
+                            <div class="form-group">
+                                <label class="form-control-label">Nivel de Curso </label>
+                                <select class="form-control" data-placeholder="nivel" #nivel="ngModel" name="nivel" [(ngModel)]="materia.nivel" (change)="selectAno(materia.nivel)" required>
+                                <option *ngFor="let data of anoCurso"  [value]="data.nivel">{{data.nivel}}</option>
+                             </select>
+                            </div>
+
+                            <div class="form-group" *ngIf="materia.nivel">
+                                <label class="form-control-label">Año de Curso </label>
+                                <select class="form-control" data-placeholder="nivel" #anoCurso="ngModel" name="anoCurso" [(ngModel)]="materia.ano_curso" required>
+                                <option *ngFor="let data of cursoAno"  [value]="data.nombre">{{data.nombre}}</option>
+                             </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Nombre de Materia</label>
+                                <input type="text" placeholder="Ingresa Nombre de Materia" class="form-control" #nombre="ngModel" [(ngModel)]="materia.nombre" name="nombre" required>
+                                <span *ngIf="!nombre.valid && nombre.touched" class="text-danger"> Nombre de Materia es obligatorio</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Unidad de Credito</label>
+                                <input type="text" placeholder="Ingresa Unidad de Credito" class="form-control" #uc="ngModel" [(ngModel)]="materia.uc" name="uc" required pattern="[0-9]*">
+                                <span *ngIf="!uc.valid && uc.touched" class="text-danger">Unidad de Credito es obligatorio</span>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" (click)="guardar(materia)" class="btn btn-primary btn-block" [disabled]="formForm.form.invalid">Registrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

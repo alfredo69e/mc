@@ -1,0 +1,152 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px', fullScreenBackdrop: true }"></ngx-loading>
+
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Materia</h2>
+    </div>
+</header>
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a>Usuario</a>
+        </li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ul>
+</div>
+
+<!-- Forms Section-->
+<section class="forms">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Basic Form-->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">Formulario {{ title }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div [hidden]="abrir">
+
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-close">
+                                        <div class="dropdown">
+                                            <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                                            <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
+                                                <a href="#" class="dropdown-item remove">
+                                                    <i class="fa fa-times"></i>Close</a>
+                                                <a href="#" class="dropdown-item edit">
+                                                    <i class="fa fa-gear"></i>Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">Datos de Materias</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="7">
+                                                        <input type="text" placeholder="Filtrar Nombre de Materia" class="form-control" [(ngModel)]="filter.nombre" name="nombre">
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Unidad de Credito</th>
+                                                    <th>Nivel</th>
+                                                    <th>Cuatrimestre</th>
+                                                    <th width="15%">Editar</th>
+                                                    <th width="15%">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of select | filterBy: filter | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index ">
+                                                    <td scope="row">{{ i+1 }}</td>
+                                                    <td class="text-center">{{ data.nombre | uppercase }}</td>
+                                                    <td class="text-center">{{ data.unidad_credito }}</td>
+                                                    <td class="text-center">{{ data.nivel | uppercase }}</td>
+                                                    <td class="text-center">{{ data.ano_curso | uppercase }}</td>
+
+                                                    <td class="text-center">
+                                                        <button class="btn btn-success btn-block" (click)="clickEdit(data)">
+                                <i class="fa fa-refresh"></i>
+                              </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-danger btn-block" (click)="clickEliminar(data)">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        <div class="pull-right">
+                                                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="abrir">
+                            <form #formForm="ngForm">
+
+
+                                <div class="form-group">
+                                    <label class="form-control-label">Nivel de Curso </label>
+                                    <select class="form-control" data-placeholder="nivel" #nivel="ngModel" name="nivel" [(ngModel)]="materia.nivel" (change)="selectAno(materia.nivel)" required>
+                                <option *ngFor="let data of anoCurso"  [value]="data.nivel">{{data.nivel}}</option>
+                             </select>
+                                </div>
+
+                                <div class="form-group" *ngIf="materia.nivel">
+                                    <label class="form-control-label">Año de Curso </label>
+                                    <select class="form-control" data-placeholder="nivel" #anoCurso="ngModel" name="anoCurso" [(ngModel)]="materia.ano_curso" required>
+                                <option *ngFor="let data of cursoAno"  [value]="data.nombre">{{data.nombre}}</option>
+                             </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label">Nombre de materia</label>
+                                    <input type="text" placeholder="Ingresa Nombre de materia" class="form-control" #nombre="ngModel" [(ngModel)]="materia.nombre" name="nombre" required>
+                                    <span *ngIf="!nombre.valid && nombre.touched" class="text-danger">El nombre de materia es obligatorio</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Unidades de Credito</label>
+                                    <input type="text" placeholder="Ingresa Unidades de Credito" class="form-control" #uc="ngModel" [(ngModel)]="materia.unidad_credito" name="uc" required pattern="[0-9]*">
+                                    <span *ngIf="!uc.valid && uc.touched" class="text-danger">Las Unidades de Credito es obligatorio</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" (click)="editar(materia)" class="btn btn-primary btn-block" [disabled]="formForm.form.invalid">Editar</button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" (click)="volver()" class="btn btn-warning pull-right">volver</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>

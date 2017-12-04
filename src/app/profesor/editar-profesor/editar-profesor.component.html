@@ -2,193 +2,180 @@
 
 <!-- Page Header-->
 <header class="page-header">
-  <div class="container-fluid">
-    <h2 class="no-margin-bottom">Profesor</h2>
-  </div>
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Profesor</h2>
+    </div>
 </header>
 <!-- Breadcrumb-->
 <div class="breadcrumb-holder container-fluid">
-  <ul class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a>Usuario</a>
-    </li>
-    <li class="breadcrumb-item active">Editar</li>
-  </ul>
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a>Usuario</a>
+        </li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ul>
 </div>
 
 <!-- Forms Section-->
 <section class="forms">
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Basic Form-->
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-close">
-            <div class="dropdown">
-              <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Basic Form-->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-close">
+                        <div class="dropdown">
+                            <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
                 <i class="fa fa-ellipsis-v"></i>
               </button>
-              <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
-                <a href="#" class="dropdown-item remove">
-                  <i class="fa fa-times"></i>Close</a>
-                <a href="#" class="dropdown-item edit">
-                  <i class="fa fa-gear"></i>Edit</a>
-              </div>
-            </div>
-          </div>
-          <div class="card-header d-flex align-items-center">
-            <h3 class="h4">Formulario {{ title }}</h3>
-          </div>
-          <div class="card-body">
-              <div [hidden]="abrir">
-
-
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-close">
-                      <div class="dropdown">
-                        <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                          <i class="fa fa-ellipsis-v"></i>
-                        </button>
-                        <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
-                          <a href="#" class="dropdown-item remove">
-                            <i class="fa fa-times"></i>Close</a>
-                          <a href="#" class="dropdown-item edit">
-                            <i class="fa fa-gear"></i>Edit</a>
+                            <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
+                                <a href="#" class="dropdown-item remove">
+                                    <i class="fa fa-times"></i>Close</a>
+                                <a href="#" class="dropdown-item edit">
+                                    <i class="fa fa-gear"></i>Edit</a>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Datos de Profesores</h3>
+                        <h3 class="h4">Formulario {{ title }}</h3>
                     </div>
                     <div class="card-body">
-                      <table class="table" width="100%">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>
-                              <input type="text" placeholder="Filtrar Nombre" class="form-control" [(ngModel)]="filterString"
-                                name="filterString"> </th>
-                            <th>
-                              <input type="text" placeholder="Filtrar Correo" class="form-control" [(ngModel)]="filterCorreo"
-                                name="filterCorreo">
-                            </th>
-                            <th>
-                              <input type="text" placeholder="Filtrar Cedula" class="form-control" [(ngModel)]="filterCedula" 
-                              name="filterCedula">
-                            </th>
-                            <th>
-                              <input type="text" placeholder="Filtrar Celular" class="form-control" [(ngModel)]="filterCelular" 
-                              name="filterCelular">
-                            </th>
-                            <th width="15%"></th>
-                            <th width="15%"></th>
-                          </tr>
-                        </thead>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Cedula</th>
-                            <th>Celular</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let data of selectProf | filter: filterString | filterCorreos: filterCorreo | filterCedulas: filterCedula | filterCelu: filterCelular 
-                                      | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index ">
-                            <td scope="row">{{ i+1 }}</td>
-                            <td class="text-center">{{ data.nombre | uppercase }} {{ data.apellido | uppercase }}</td>
-                            <td class="text-center">{{ data.correo }}</td>
-                            <td class="text-center">{{ data.cedula }}</td>
-                            <td class="text-center">{{ data.celular }}</td>
-                            <td class="text-center">
-                              <button class="btn btn-success btn-block" (click)="clickEdit(data)">
+                        <div [hidden]="abrir">
+
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-close">
+                                        <div class="dropdown">
+                                            <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                                            <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
+                                                <a href="#" class="dropdown-item remove">
+                                                    <i class="fa fa-times"></i>Close</a>
+                                                <a href="#" class="dropdown-item edit">
+                                                    <i class="fa fa-gear"></i>Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">Datos de Profesores</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>
+                                                        <input type="text" placeholder="Filtrar Nombre" class="form-control" [(ngModel)]="filter.nombre" name="nombre"> </th>
+                                                    <th>
+                                                        <input type="text" placeholder="Filtrar Correo" class="form-control" [(ngModel)]="filter.correo" name="correo">
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder="Filtrar Cedula" class="form-control" [(ngModel)]="filter.cedula" name="cedula">
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder="Filtrar Celular" class="form-control" [(ngModel)]="filter.celular" name="celular">
+                                                    </th>
+                                                    <th width="15%"></th>
+                                                    <th width="15%"></th>
+                                                </tr>
+                                            </thead>
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Correo</th>
+                                                    <th>Cedula</th>
+                                                    <th>Celular</th>
+                                                    <th>Editar</th>
+                                                    <th>Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of selectProf | filterBy: filter | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index ">
+                                                    <td scope="row">{{ i+1 }}</td>
+                                                    <td class="text-center">{{ data.nombre | uppercase }} {{ data.apellido | uppercase }}</td>
+                                                    <td class="text-center">{{ data.correo }}</td>
+                                                    <td class="text-center">{{ data.cedula }}</td>
+                                                    <td class="text-center">{{ data.celular }}</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-success btn-block" (click)="clickEdit(data)">
                                 <i class="fa fa-refresh"></i>
                               </button>
-                            </td>
-                            <td class="text-center">
-                              <button class="btn btn-danger btn-block" (click)="clickEliminar(data)">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-danger btn-block" (click)="clickEliminar(data)">
                                 <i class="fa fa-trash"></i>
                               </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="7">
-                           <div class="pull-right">
-                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                           </div> 
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        <div class="pull-right">
+                                                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="abrir">
+                            <form #profesorForm="ngForm">
+                                <div class="form-group">
+                                    <label class="form-control-label">Nombre</label>
+                                    <input type="text" placeholder="Ingresa Nombre" class="form-control" #nombre="ngModel" [(ngModel)]="profesor.nombre" name="nombre" required minlength="4">
+                                    <span *ngIf="!nombre.valid && nombre.touched" class="text-danger">El nombre es obligatorio</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Apellido</label>
+                                    <input type="text" placeholder="Ingresa Apellido" class="form-control" #apellido="ngModel" [(ngModel)]="profesor.apellido" name="apellido" required pattern="[A-Za-z]*">
+                                    <span *ngIf="!apellido.valid && apellido.touched" class="text-danger">El apellido es obligatorio</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Cedula</label>
+                                    <input type="text" placeholder="Ingresa Cedula" class="form-control" #cedula="ngModel" name="cedula" [(ngModel)]="profesor.cedula" disabled required>
+                                    <span *ngIf="!cedula.valid && cedula.touched" class="text-danger">La cedula es obligatorio</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Telefono</label>
+                                    <input type="text" placeholder="Ingresa Cedula" class="form-control" #tlf="ngModel" name="tlf" [(ngModel)]="profesor.tlf">
+                                    <span *ngIf="!tlf.valid && tlf.touched" class="text-danger">La cedula es obligatorio</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Celular</label>
+                                    <input type="text" placeholder="Ingresa Celular" class="form-control" #celular="ngModel" name="celular" [(ngModel)]="profesor.celular" required>
+                                    <span *ngIf="!celular.valid && celular.touched" class="text-danger">La cedula es obligatorio</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Correo</label>
+                                    <input type="text" placeholder="Ingresa Correo" class="form-control" #correo="ngModel" name="correo" [(ngModel)]="profesor.correo" disabled required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                                    <span *ngIf="!correo.valid && correo.touched" class="text-danger">Email no es correcto</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Direccion</label>
+                                    <textarea type="text" placeholder="Ingresa Direccion" class="form-control" #direccion="ngModel" name="direccion" [(ngModel)]="profesor.direccion" required rows="4"></textarea>
+                                    <span *ngIf="!direccion.valid && direccion.touched" class="text-danger">Email no es correcto</span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" (click)="editar(profesor)" class="btn btn-primary btn-block" [disabled]="profesorForm.form.invalid">Editar</button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" (click)="volver()" class="btn btn-warning pull-right">volver</button>
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
-                  </div>
                 </div>
-
-              </div>
-
-              <div *ngIf="abrir">
-                <form #profesorForm="ngForm">
-                  <div class="form-group">
-                    <label class="form-control-label">Nombre</label>
-                    <input type="text" placeholder="Ingresa Nombre" class="form-control" #nombre="ngModel" [(ngModel)]="profesor.nombre" name="nombre"
-                      required minlength="4">
-                    <span *ngIf="!nombre.valid && nombre.touched" class="text-danger">El nombre es obligatorio</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Apellido</label>
-                    <input type="text" placeholder="Ingresa Apellido" class="form-control" #apellido="ngModel" [(ngModel)]="profesor.apellido"
-                      name="apellido" required pattern="[A-Za-z]*">
-                    <span *ngIf="!apellido.valid && apellido.touched" class="text-danger">El apellido es obligatorio</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Cedula</label>
-                    <input type="text" placeholder="Ingresa Cedula" class="form-control" #cedula="ngModel" name="cedula" [(ngModel)]="profesor.cedula" disabled
-                      required (blur)="validarCedula(usuario)">
-                    <span *ngIf="!cedula.valid && cedula.touched" class="text-danger">La cedula es obligatorio</span>
-                    <span *ngIf="validCedula" class="text-info">Cedula ya Registrado</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Telefono</label>
-                    <input type="text" placeholder="Ingresa Cedula" class="form-control" #tlf="ngModel" name="tlf" [(ngModel)]="profesor.tlf">
-                    <span *ngIf="!tlf.valid && tlf.touched" class="text-danger">La cedula es obligatorio</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Celular</label>
-                    <input type="text" placeholder="Ingresa Celular" class="form-control" #celular="ngModel" name="celular" [(ngModel)]="profesor.celular"
-                      required>
-                    <span *ngIf="!celular.valid && celular.touched" class="text-danger">La cedula es obligatorio</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Correo</label>
-                    <input type="text" placeholder="Ingresa Correo" class="form-control" #correo="ngModel" name="correo" [(ngModel)]="profesor.correo"
-                      (blur)="validarCorreo(usuario)" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-                    <span *ngIf="!correo.valid && correo.touched" class="text-danger">Email no es correcto</span>
-                    <span *ngIf="validCorreo" class="text-info">Correo ya Registrado</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-control-label">Direccion</label>
-                    <textarea type="text" placeholder="Ingresa Direccion" class="form-control" #direccion="ngModel" name="direccion" [(ngModel)]="profesor.direccion"
-                      required rows="4"></textarea>
-                    <span *ngIf="!direccion.valid && direccion.touched" class="text-danger">Email no es correcto</span>
-                  </div>
-                  <div class="form-group">
-                    <button type="button" (click)="editar(profesor)" class="btn btn-primary btn-block" [disabled]="profesorForm.form.invalid || validCorreo || validCedula">Editar</button>
-                  </div>
-                  <div class="form-group">
-                    <button type="button" (click)="volver()" class="btn btn-warning pull-right">volver</button>
-                  </div>
-                </form>
-              </div>
-            
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
 
 
