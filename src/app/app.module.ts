@@ -7,6 +7,8 @@ import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { Select2Module } from 'ng2-select2';
 import { NgxPaginationModule } from 'ngx-pagination';
+// import { DropdownModule } from 'ngx-dropdowns';
+// import { Select2Component } from 'angular-select2-component';
 
 
 
@@ -23,7 +25,7 @@ import { RegistrarAlumnoComponent } from './alumno/registrar-alumno/registrar-al
 import { EditarAlumnoComponent } from './alumno/editar-alumno/editar-alumno.component';
 import { ResgitrarMateriaComponent } from './materia/resgitrar-materia/resgitrar-materia.component';
 import { EditarMateriaComponent } from './materia/editar-materia/editar-materia.component';
-import { FilterPipeModule } from 'ngx-filter-pipe';
+import { MatriculaComponent } from './matricula/matricula.component';
 
 // services
 import { AuthService } from './auth.service';
@@ -31,6 +33,7 @@ import { SoporteService } from './soporte/soporte.service';
 import { ServiceProfesorService } from './profesor/service-profesor.service';
 import { ServiceAlumnoService } from './alumno/service-alumno.service';
 import { ServiceMateriaService } from './materia/service-materia.service';
+import { ServiceMatriculaService } from './matricula/service-matricula.service';
 
 
 
@@ -40,6 +43,8 @@ import { PipeProfesorPipe, filetCedulaProfesorPipe, filterCorreoProfesorPipe,
   filtCelularProfesorPipe } from './profesor/pipe-profesor.pipe';
 import { FilterAlumnoPipe } from './alumno/filter-alumno.pipe';
 import { FilterMateriaPipe } from './materia/filter-materia.pipe';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+
 
 
 const appRoutes: Routes = [
@@ -53,6 +58,7 @@ const appRoutes: Routes = [
   { path: 'Alumno/Editar', component: EditarAlumnoComponent },
   { path: 'Materia/Registrar', component: ResgitrarMateriaComponent },
   { path: 'Materia/Editar', component: EditarMateriaComponent },
+  { path: 'Matricula', component: MatriculaComponent },
   { path: '', redirectTo: '/Login', pathMatch: 'full'},
 ];
 
@@ -78,7 +84,9 @@ const appRoutes: Routes = [
     FilterAlumnoPipe,
     ResgitrarMateriaComponent,
     EditarMateriaComponent,
-    FilterMateriaPipe
+    FilterMateriaPipe,
+    MatriculaComponent
+    //  Select2Component
   ],
   imports: [
     BrowserModule,
@@ -92,7 +100,8 @@ const appRoutes: Routes = [
     LoadingModule,
     Select2Module,
     NgxPaginationModule,
-    FilterPipeModule
+    FilterPipeModule,
+  //  DropdownModule
     // other imports here
   ],
   providers: [
@@ -100,7 +109,8 @@ const appRoutes: Routes = [
     AuthService,
     ServiceProfesorService,
     ServiceAlumnoService,
-    ServiceMateriaService
+    ServiceMateriaService,
+    ServiceMatriculaService
   ],
   bootstrap: [AppComponent]
 })

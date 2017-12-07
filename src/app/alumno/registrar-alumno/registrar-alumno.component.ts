@@ -23,6 +23,7 @@ export class RegistrarAlumnoComponent implements OnInit {
    }
 
   guardar(data) {
+     this.loading = true;
     this.serviceAlumnoService.guardar(data)
       .subscribe(res => {
         this.datos = res.json();
