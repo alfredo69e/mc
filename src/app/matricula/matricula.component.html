@@ -27,8 +27,8 @@
                         <h3 class="h4">Formulario de Matricula</h3>
                     </div>
                     <div class="card-body">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="col-md-6 text-center">
+                        <div class="col-sm-12 col-md-12 align-items-center">
+                            <div class="col-md-6">
                                 <div class="input-group">
                                     <div class="input-group-btn">
                                         <button data-toggle="dropdown" type="button" class="btn btn-white dropdown-toggle"> {{ select.datos }}  <span class="caret"></span></button>
@@ -44,19 +44,212 @@
                             </div>
                         </div>
 
-                        <form #formForm="ngForm">
+                        <br>  
 
-
-
-
-                            <div>
-
-
+<!-- Basic Form-->
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Datos del Estudiante</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-lg-4">
+                                <label class="form-control-label">Nombre</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
                             </div>
-                        </form>
+                            <div class="col-md-4 col-sm-12 col-lg-4">
+                                <label class="form-control-label">Apellido</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-lg-4">
+                                <label class="form-control-label">Cedula</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-lg-4">
+                                <label class="form-control-label">Telefono</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label class="form-control-label">Celular</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label class="form-control-label">Correo</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="form-control-label">Dirección</label>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                           
+
+
+    <div class="col-sm-12">
+        <div class="row">
+
+<!-- Basic Form-->
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Cuatrimestre</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <label class="form-control-label">Nivel de Curso</label>
+                            <select class="form-control" data-placeholder="nivel" #nivel="ngModel" name="nivel" [(ngModel)]="matricula.nivel" (change)="selectAno(matricula.nivel)"
+                                required>
+                                <option *ngFor="let data of ano_Curso" [value]="data.nivel">{{data.nivel}}</option>
+                            </select>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <label class="form-control-label">Año de Curso</label>
+                                <select class="form-control" data-placeholder="nivel" #anoCurso="ngModel" name="anoCurso" [(ngModel)]="matricula.ano_curso" (change)="selectMateria(matricula)"
+                                    required>
+                                    <option *ngFor="let data of selectAnoCurso" [value]="data.nombre">{{data.nombre}}</option>
+                                    </select>
+                            </div>
+                             <div class="col-md-12 col-sm-12 col-lg-12">
+                                <table class="table" width="100%">
+                                 <thead>
+                                        <tr>
+                                            <th width="5%">#</th>
+                                            <th width="5%">UC</th>
+                                            <th class="text-center">Materia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of matricula.materias ; let i = index">
+                                            <td scope="row">{{ i+1 }}</td>
+                                            <td class="text-center">{{ data.unidad_credito }}</td>
+                                            <td class="text-center">{{ data.nombre | uppercase }}</td>
+                                        </tr>
+                                        <tr *ngIf="!abrirMat">
+                                            <td colspan="3">
+                                                <div class="pull-right">
+                                                   <button type="button" class="btn btn-primary btn-sm" (click)="agregarMateria()" [disabled]="!activarMat"> Agregar Materia</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="abrirMat">
+                                            <td colspan="3">
+                                            <select  class="form-control"  #mater="ngModel" name="mater" [(ngModel)]="matricula.agregarMat" (change)="selectMat(matricula.agregarMat)" >
+                                            <option *ngFor="let data of materia" [value]="data._id"> {{ data.nombre }} {{ data._id }} </option>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                           
+<!-- Basic Form-->
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-close pull-right">    
+            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm">Hacer Pago</button>
+        </div>
+        <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Pagos</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <table class="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th align="center">Nombre</th>
+                                        <th align="center">Costo</th>
+                                        <th align="center">Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of realizarPagos ; let i = index">
+                                        <td scope="row">{{ i+1 }}</td>
+                                        <td class="text-center">{{ data.nombre | uppercase }}</td>
+                                        <td class="text-center">{{ data.costo }}</td>
+                                        <td class="text-center">{{ data.creado }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+                           
+
+
+<!-- Modal-->
+<div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+    <div role="document" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="exampleModalLabel" class="modal-title">Realizar Pago</h4>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group" >
+                        <select class="form-control" name="pago" #pago="ngModel" [(ngModel)]="matricula.pagos" (change)="realizarPago(matricula.pagos)" > 
+                        <option *ngFor="let data of pagos"  [value]="data.id"> {{ data.nombre }} {{ data.costo }} {{ data.id }} </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pago</label>
+                        <input type="text" placeholder="" value="{{ realizarPagos.nombre  }}" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Costo</label>
+                        <input type="text" placeholder="" value="{{ realizarPagos.costo }}" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                       <button type="button" class="btn btn-primary btn-block btn-sm"> Realizar Pago </button>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            
+                      
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>

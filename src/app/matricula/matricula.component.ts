@@ -22,16 +22,43 @@ export class MatriculaComponent implements OnInit {
  public id;
  public busqueda;
  public select;
+ public ano_Curso;
+  public selectAnoCurso;
+  abrirMat;
+  MatSelect;
+  valido;
+  activarMat;
+  pagos;
+  realizarPagos;
 
   constructor(private serviceMatriculaService: ServiceMatriculaService, private serviceMateriaService: ServiceMateriaService,
               private serviceAlumnoService: ServiceAlumnoService) {
 
-                this.matricula = {};
+                this.selectAnoCurso = [];
+                this.matricula = [];
+                this.matricula.materias = [];
+                this.realizarPagos = [];
                 this.getMateria();
                 this.getDatos();
+                this.getPagos();
                 this.select = {};
                 this.select.datos = 'recibo';
+                this.ano_Curso = this.serviceMateriaService.anoCurso;
               }
+
+          getPagos() {
+            this.pagos = this.serviceMatriculaService.getPagos();
+          }
+
+          realizarPago(data) {
+            console.log(data);
+            this.realizarPagos = [];
+            for (let i = 0; i < this.pagos.length; i++) {
+              if (this.pagos[i].id == data) {
+                this.realizarPagos.push(this.pagos[i]);
+              }
+            }
+          }
 
             getDatos() {
              this.busqueda =  this.serviceMatriculaService.getDatos();
@@ -63,7 +90,6 @@ export class MatriculaComponent implements OnInit {
         .subscribe( res => {
           this.materia = res.json();
           this.loading = false;
-
         },
         err => {
           this.errDatos = JSON.parse(err._body);
@@ -82,6 +108,50 @@ export class MatriculaComponent implements OnInit {
 
     }
 
+
+  selectAno(data) {
+    this.matricula.ano_curso = '';
+    this.matricula.materias = [];
+    this.activarMat = false;
+    for (let i = 0; i < this.ano_Curso.length; i++) {
+      if (this.ano_Curso[i].nivel === data) {
+        this.selectAnoCurso = this.ano_Curso[i].cuatrimestre;
+      }
+    }
+  }
+
+  selectMateria(data) {
+    this.matricula.materias = [];
+    this.activarMat = false;
+    for (let i = 0; i < this.materia.length; i++) {
+      if ( (this.materia[i].nivel === data.nivel) && (this.materia[i].ano_curso === data.ano_curso) ) {
+        this.matricula.materias.push({ unidad_credito: this.materia[i].unidad_credito , nombre: this.materia[i].nombre });
+        this.activarMat = true;
+      }
+    }
+  }
+
+  agregarMateria() {
+    this.abrirMat = true;
+    this.matricula.agregarMat = '';
+  }
+
+  selectMat(data) {
+    this.valido = true;
+  for (let i = 0; i < this.materia.length; i++) {
+    if (this.materia[i]._id === data) {
+      for (let j = 0; j < this.matricula.materias.length; j++) {
+        if (this.materia[i].nombre === this.matricula.materias[j].nombre ) {
+            this.valido = false;
+        }
+      }
+      if (this.valido) {
+        this.matricula.materias.push({ unidad_credito: this.materia[i].unidad_credito, nombre: this.materia[i].nombre });
+      }
+      }
+    }
+    this.abrirMat = false;
+  }
 
   ngOnInit() {
   }
