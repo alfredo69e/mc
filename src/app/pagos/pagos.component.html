@@ -3,16 +3,16 @@
 <!-- Page Header-->
 <header class="page-header">
     <div class="container-fluid">
-        <h2 class="no-margin-bottom">Matricula</h2>
+        <h2 class="no-margin-bottom">Pagos</h2>
     </div>
 </header>
 <!-- Breadcrumb-->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
         <li class="breadcrumb-item">
-            <a>Matricula</a>
+            <a>Pagos</a>
         </li>
-        <li class="breadcrumb-item active">Matricula</li>
+        <li class="breadcrumb-item active">Pagos</li>
     </ul>
 </div>
 
@@ -24,7 +24,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Formulario de Matricula</h3>
+                        <h3 class="h4">Formulario de Pagos</h3>
                     </div>
                     <div class="card-body">
                         <div class="col-sm-12 col-md-12 align-items-center">
@@ -38,7 +38,7 @@
                                     </div>
                                     <input type="text" class="form-control" #buscar="ngModel" [(ngModel)]="select.buscar">
                                     <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary" (click)="buscarUsuario(select)" [disabled]="!select.buscar">Buscar</button>
+                                  <button type="button" class="btn btn-primary" (click)="buscarPago(select)" [disabled]="!select.buscar">Buscar</button>
                                 </span>
                                 </div>
                             </div>
@@ -60,31 +60,31 @@
                         <div class="row">
                             <div class="col-md-4 col-sm-12 col-lg-4">
                                 <label class="form-control-label">Nombre</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ matricula.nombre }}" disabled>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.nombre }}" disabled>
                             </div>
                             <div class="col-md-4 col-sm-12 col-lg-4">
                                 <label class="form-control-label">Apellido</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ matricula.apellido }}" disabled>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.apellido }}" disabled>
                             </div>
                             <div class="col-md-4 col-sm-12 col-lg-4">
                                 <label class="form-control-label">Cedula</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ matricula.cedula }}" disabled>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.cedula }}" disabled>
                             </div>
                             <div class="col-md-4 col-sm-12 col-lg-4">
                                 <label class="form-control-label">Telefono</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ matricula.tlf }}" disabled>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.tlf }}" disabled>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label class="form-control-label">Celular</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ matricula.celular }}" disabled>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.celular }}" disabled>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label class="form-control-label">Correo</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ matricula.correo }}" disabled>
+                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.correo }}" disabled>
                             </div>
                             <div class="col-md-12 col-sm-12">
                                 <label class="form-control-label">Dirección</label>
-                                <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ matricula.direccion }} </textarea>
+                                <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ pago.alumno.direccion }} </textarea>
                             </div>
                         </div>
                     </div>
@@ -110,50 +110,22 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <div class="row">
-                            <div class="col-md-12 col-sm-12 col-lg-12">
-                                <label class="form-control-label">Nivel de Curso</label>
-                            <select class="form-control" data-placeholder="nivel" #nivel="ngModel" name="nivel" [(ngModel)]="matricula.nivel" (change)="selectAno(matricula.nivel)"
-                                required>
-                                <option *ngFor="let data of ano_Curso" [value]="data.nivel">{{data.nivel}}</option>
-                            </select>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-lg-12">
-                                <label class="form-control-label">Año de Curso</label>
-                                <select class="form-control" data-placeholder="nivel" #anoCurso="ngModel" name="anoCurso" [(ngModel)]="matricula.ano_curso" (change)="selectMateria(matricula)"
-                                    required>
-                                    <option *ngFor="let data of selectAnoCurso" [value]="data.nombre">{{data.nombre}}</option>
-                                    </select>
-                            </div>
                              <div class="col-md-12 col-sm-12 col-lg-12">
                                 <table class="table" width="100%">
                                  <thead>
                                         <tr>
                                             <th width="5%">#</th>
-                                            <th width="5%">UC</th>
-                                            <th class="text-center">Materia</th>
-                                            <th  width="10%">Editar</th>
+                                            <th width="5%">Costo</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th  width="10%">Pagar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let data of matricula.materias ; let i = index">
+                                        <tr *ngFor="let data of pagos ; let i = index">
                                             <td scope="row">{{ i+1 }}</td>
-                                            <td class="text-center">{{ data.unidad_credito }}</td>
+                                            <td class="text-center">{{ data.costo }}</td>
                                             <td class="text-center">{{ data.nombre | uppercase }}</td>
-                                            <td><button type="button" class="btn btn-block btn-danger btn-sm" (click)="eliminar(data)"> <i class="fa fa-remove" ></i> </button></td>
-                                        </tr>
-                                        <tr *ngIf="!abrirMat">
-                                            <td colspan="3">
-                                                <div class="pull-right">
-                                                   <button type="button" class="btn btn-primary btn-sm" (click)="agregarMateria()" [disabled]="!activarMat"> Agregar Materia</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="abrirMat">
-                                            <td colspan="3">
-                                            <select  class="form-control"  #mater="ngModel" name="mater" [(ngModel)]="matricula.agregarMat" (change)="selectMat(matricula.agregarMat)" >
-                                            <option *ngFor="let data of materia" [value]="data._id"> {{ data.nombre }} {{ data._id }} </option>
-                                            </select>
-                                            </td>
+                                            <td><button type="button" class="btn btn-block btn-success btn-sm" (click)="eliminar(data)"> <i class="fa fa-usd" ></i> </button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -170,7 +142,7 @@
 </div>
                
 <div class="col-sm-12 col-md-12 col-lg-12">
-    <button type="button" class="btn btn-primary btn-block" (click)="guardar(matricula)" >Registrar</button>
+    <button type="button" class="btn btn-primary btn-block" (click)="guardar(pago)" >Registrar</button>
 </div>
 
 </div>

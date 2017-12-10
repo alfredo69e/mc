@@ -26,6 +26,7 @@ import { EditarAlumnoComponent } from './alumno/editar-alumno/editar-alumno.comp
 import { ResgitrarMateriaComponent } from './materia/resgitrar-materia/resgitrar-materia.component';
 import { EditarMateriaComponent } from './materia/editar-materia/editar-materia.component';
 import { MatriculaComponent } from './matricula/matricula.component';
+import { PagosComponent } from './pagos/pagos.component';
 
 // services
 import { AuthService } from './auth.service';
@@ -34,6 +35,7 @@ import { ServiceProfesorService } from './profesor/service-profesor.service';
 import { ServiceAlumnoService } from './alumno/service-alumno.service';
 import { ServiceMateriaService } from './materia/service-materia.service';
 import { ServiceMatriculaService } from './matricula/service-matricula.service';
+import { ServicePagosService } from './pagos/service-pagos.service';
 
 
 
@@ -44,6 +46,7 @@ import { PipeProfesorPipe, filetCedulaProfesorPipe, filterCorreoProfesorPipe,
 import { FilterAlumnoPipe } from './alumno/filter-alumno.pipe';
 import { FilterMateriaPipe } from './materia/filter-materia.pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+
 
 
 
@@ -59,6 +62,7 @@ const appRoutes: Routes = [
   { path: 'Materia/Registrar', component: ResgitrarMateriaComponent },
   { path: 'Materia/Editar', component: EditarMateriaComponent },
   { path: 'Matricula', component: MatriculaComponent },
+  { path: 'Pagos', component: PagosComponent },
   { path: '', redirectTo: '/Login', pathMatch: 'full'},
 ];
 
@@ -85,7 +89,8 @@ const appRoutes: Routes = [
     ResgitrarMateriaComponent,
     EditarMateriaComponent,
     FilterMateriaPipe,
-    MatriculaComponent
+    MatriculaComponent,
+    PagosComponent
     //  Select2Component
   ],
   imports: [
@@ -110,7 +115,8 @@ const appRoutes: Routes = [
     ServiceProfesorService,
     ServiceAlumnoService,
     ServiceMateriaService,
-    ServiceMatriculaService
+    ServiceMatriculaService,
+    ServicePagosService
   ],
   bootstrap: [AppComponent]
 })
