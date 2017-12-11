@@ -44,113 +44,132 @@
                             </div>
                         </div>
 
-                        <br>  
+                        <br>
 
-<div *ngIf="verDatos">
-<!-- Basic Form-->
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-header d-flex align-items-center">
-            <h3 class="h4">Datos del Estudiante</h3>
-        </div>
-        <div class="card-body">
-            <form>
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12 col-lg-4">
-                                <label class="form-control-label">Nombre</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.nombre }}" disabled>
+                        <div *ngIf="verDatos">
+                            <!-- Basic Form-->
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">Datos del Estudiante</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-12 col-lg-4">
+                                                            <label class="form-control-label">Nombre</label>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.nombre }}" disabled>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12 col-lg-4">
+                                                            <label class="form-control-label">Apellido</label>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.apellido }}" disabled>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12 col-lg-4">
+                                                            <label class="form-control-label">Cedula</label>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.cedula }}" disabled>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12 col-lg-4">
+                                                            <label class="form-control-label">Telefono</label>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.tlf }}" disabled>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12">
+                                                            <label class="form-control-label">Celular</label>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.celular }}" disabled>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12">
+                                                            <label class="form-control-label">Correo</label>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.correo }}" disabled>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <label class="form-control-label">Dirección</label>
+                                                            <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ pago.alumno.direccion }} </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4 col-sm-12 col-lg-4">
-                                <label class="form-control-label">Apellido</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.apellido }}" disabled>
+
+
+
+                            <div class="col-sm-12">
+                                <div class="row">
+
+                                    <!-- Basic Form-->
+                                    <div class="col-lg-12 col-sm-12 col-md-12">
+                                        <div class="card">
+                                            <div class="card-header d-flex align-items-center">
+                                                <h3 class="h4">Cuatrimestre</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-lg-12">
+                                                                    <table class="table" width="100%">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th width="5%">#</th>
+                                                                                <th width="5%">Costo</th>
+                                                                                <th class="text-center">Nombre</th>
+                                                                                <th width="10%">Pagar</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngFor="let data of pago.pagos ; let i = index">
+                                                                                <td scope="row">{{ i+1 }}</td>
+                                                                                <td class="text-center">{{ data.costo }}</td>
+                                                                                <td class="text-center">{{ data.nombre | uppercase }}</td>
+                                                                                <td *ngIf="data.pagado"><button type="button" class="btn btn-block btn-success btn-sm" disabled> <i class="fa fa-usd" ></i> Pagado  <i class="fa fa-check" ></i> </button></td>
+                                                                                <td *ngIf="!data.pagado"><button type="button" class="btn btn-block btn-warning btn-sm" disabled> <i class="fa fa-usd" ></i> Deuda <i class="fa fa-remove" ></i> </button></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Costo</td>
+                                                                                <td> {{ costo }} </td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Pagado</td>
+                                                                                <td> {{ pagado }} </td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Debe</td>
+                                                                                <td> {{ costo - pagado }} </td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-md-4 col-sm-12 col-lg-4">
-                                <label class="form-control-label">Cedula</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.cedula }}" disabled>
+
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <button type="button" class="btn btn-primary btn-block" (click)="guardarPago(pago)">Registrar Pago</button>
                             </div>
-                            <div class="col-md-4 col-sm-12 col-lg-4">
-                                <label class="form-control-label">Telefono</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.tlf }}" disabled>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <label class="form-control-label">Celular</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.celular }}" disabled>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <label class="form-control-label">Correo</label>
-                                <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.correo }}" disabled>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="form-control-label">Dirección</label>
-                                <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ pago.alumno.direccion }} </textarea>
-                            </div>
+
                         </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-                           
 
 
-    <div class="col-sm-12">
-        <div class="row">
-
-<!-- Basic Form-->
-<div class="col-lg-12 col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-header d-flex align-items-center">
-            <h3 class="h4">Cuatrimestre</h3>
-        </div>
-        <div class="card-body">
-            <form>
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                             <div class="col-md-12 col-sm-12 col-lg-12">
-                                <table class="table" width="100%">
-                                 <thead>
-                                        <tr>
-                                            <th width="5%">#</th>
-                                            <th width="5%">Costo</th>
-                                            <th class="text-center">Nombre</th>
-                                            <th  width="10%">Pagar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let data of pagos ; let i = index">
-                                            <td scope="row">{{ i+1 }}</td>
-                                            <td class="text-center">{{ data.costo }}</td>
-                                            <td class="text-center">{{ data.nombre | uppercase }}</td>
-                                            <td><button type="button" class="btn btn-block btn-success btn-sm" (click)="eliminar(data)"> <i class="fa fa-usd" ></i> </button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-</div>
-</div>
-               
-<div class="col-sm-12 col-md-12 col-lg-12">
-    <button type="button" class="btn btn-primary btn-block" (click)="guardar(pago)" >Registrar</button>
-</div>
-
-</div>
-
-                      
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
