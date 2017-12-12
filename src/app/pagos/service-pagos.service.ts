@@ -30,6 +30,11 @@ export class ServicePagosService {
     ];
   }
 
+  getPagoProfe() {
+    let prof = [];
+    return prof = [{ id: 1, pago: 8, comida: 1.5  }];
+  }
+
   buscar(data) {
     const body = JSON.stringify(data);
     const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -52,6 +57,22 @@ export class ServicePagosService {
     headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({ headers: headers });
     return this.http.post(`${this.url}/Array`, body, options);
+  }
+
+  pagoProf(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/buscarProfesor`, body, options);
+  }
+
+  buscarProf(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/profesor`, body, options);
   }
 
 

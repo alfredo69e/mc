@@ -36,13 +36,14 @@ export class PagosComponent implements OnInit {
     this.select.dato = 'recibo';
     this.session();
     this.usuario = {};
+    this.pago.recibo = {};
+    this.pago.alumno = {};
    }
 
   session() {
     this.authService.session()
       .subscribe(res => {
         this.usuario = res.json();
-        console.log(this.usuario);
       },
       err => {
         this.errDatos = err;
@@ -108,7 +109,8 @@ export class PagosComponent implements OnInit {
        for (let j = 0; j < this.pago.pagos.length; j++) {
          if (this.pago.recibo.pagos[i].id === this.pago.pagos[j].id) {
            this.pago.pagos[j] = ({ id: this.pago.pagos[j].id, nombre: this.pago.pagos[j].nombre,
-                              costo: this.pago.pagos[j].costo,  pagado: true
+                              costo: this.pago.pagos[j].costo,  pagado: true,
+                              fecha: this.pago.recibo.pagos[i].creado
                             });
             this.pagado = this.pagado + this.pago.pagos[j].costo;
          }
@@ -145,31 +147,39 @@ export class PagosComponent implements OnInit {
 
    }
 
+
    download() {
-     const datos = this.pago;
+      const pdf = new jsPDF('p', 'pt', 'a4');
+      const source = $('#imprimir')[0];
 
-const doc = new jsPDF('p', 'pt', 'a4');
+      const specialElementHandlers = {
+            '#bypassme': function (element, renderer) {
+                return true;
+            }
+        };
+       const margins = {
+            top: 5,
+            bottom: 60,
+            left: 10,
+            width: 600
+        };
 
-     const col = [
-       {title: 'Costo', dataKey: 'costo'},
-       { title: 'Nombre', dataKey: 'nombre'},
-       { title: 'Cobro', dataKey: 'pagar'}, ];
+        pdf.fromHTML(
+            source,
+            margins.left, // x coord
+            margins.top, { // y coord
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
 
-     doc.setFontSize(22);
-     doc.text(70, 20, 'Documento no Fiscal');
+            function (dispose) {
+                pdf.save('Prueba.pdf');
+            }, margins
+        );
+}
 
-     doc.setFontSize(12);
-     doc.text(10, 30, 'Recibo Nº: ' + this.select.buscar);
-
-     doc.setFontSize(12);
-     doc.text(10, 40, 'Nombre: ' + this.pago.alumno.nombre + ' ' + this.pago.alumno.apellido +
-                      '             Cedula: ' + this.pago.alumno.cedula +
-                      '             Celular: ' + this.pago.alumno.celular);
-
-     doc.autoTable(col, this.pago.pagos);
-
-// Save the PDF
-     doc.save('Test.pdf');
+selection(data) {
+  this.select.dato = data.nombre;
 }
 
   ngOnInit() {

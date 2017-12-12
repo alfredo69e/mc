@@ -27,6 +27,7 @@ import { ResgitrarMateriaComponent } from './materia/resgitrar-materia/resgitrar
 import { EditarMateriaComponent } from './materia/editar-materia/editar-materia.component';
 import { MatriculaComponent } from './matricula/matricula.component';
 import { PagosComponent } from './pagos/pagos.component';
+import { ProfesorComponent } from './pagos/profesor/profesor.component';
 
 // services
 import { AuthService } from './auth.service';
@@ -50,6 +51,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 
+
 const appRoutes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'Dashboard', component: DashboardComponent },
@@ -63,6 +65,7 @@ const appRoutes: Routes = [
   { path: 'Materia/Editar', component: EditarMateriaComponent },
   { path: 'Matricula', component: MatriculaComponent },
   { path: 'Pagos', component: PagosComponent },
+  { path: 'Pagos/Profesor', component: ProfesorComponent },
   { path: '', redirectTo: '/Login', pathMatch: 'full'},
 ];
 
@@ -90,7 +93,8 @@ const appRoutes: Routes = [
     EditarMateriaComponent,
     FilterMateriaPipe,
     MatriculaComponent,
-    PagosComponent
+    PagosComponent,
+    ProfesorComponent
     //  Select2Component
   ],
   imports: [

@@ -38,7 +38,7 @@
                                     </div>
                                     <input type="text" class="form-control" #buscar="ngModel" [(ngModel)]="select.buscar">
                                     <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary" (click)="buscarPago(select)" [disabled]="!select.buscar">Buscar</button>
+                                  <button type="button" class="btn btn-primary" (click)="buscarProf(select)" [disabled]="!select.buscar">Buscar</button>
                                 </span>
                                 </div>
                             </div>
@@ -60,31 +60,31 @@
                                                     <div class="row">
                                                         <div class="col-md-4 col-sm-12 col-lg-4">
                                                             <label class="form-control-label">Nombre</label>
-                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.nombre }}" disabled>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ prof.nombre }}" disabled>
                                                         </div>
                                                         <div class="col-md-4 col-sm-12 col-lg-4">
                                                             <label class="form-control-label">Apellido</label>
-                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.apellido }}" disabled>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ prof.apellido }}" disabled>
                                                         </div>
                                                         <div class="col-md-4 col-sm-12 col-lg-4">
                                                             <label class="form-control-label">Cedula</label>
-                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.cedula }}" disabled>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ prof.cedula }}" disabled>
                                                         </div>
                                                         <div class="col-md-4 col-sm-12 col-lg-4">
                                                             <label class="form-control-label">Telefono</label>
-                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.tlf }}" disabled>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ prof.tlf }}" disabled>
                                                         </div>
                                                         <div class="col-md-4 col-sm-12">
                                                             <label class="form-control-label">Celular</label>
-                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.celular }}" disabled>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ prof.celular }}" disabled>
                                                         </div>
                                                         <div class="col-md-4 col-sm-12">
                                                             <label class="form-control-label">Correo</label>
-                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ pago.alumno.correo }}" disabled>
+                                                            <input type="text" placeholder="Ingresa Nombre" class="form-control" value="{{ prof.correo }}" disabled>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12">
                                                             <label class="form-control-label">Dirección</label>
-                                                            <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ pago.alumno.direccion }} </textarea>
+                                                            <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ prof.direccion }} </textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,7 +123,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <tr *ngFor="let data of pago.pagos ; let i = index">
+                                                                            <tr *ngFor="let data of prof.pago ; let i = index">
                                                                                 <td scope="row">{{ i+1 }}</td>
                                                                                 <td class="text-center">{{ data.costo }}</td>
                                                                                 <td class="text-center">{{ data.nombre | uppercase }}</td>
@@ -197,9 +197,9 @@
                                         <p class="h6"> Recibo: N° {{ pago.recibo._id }} </p>
                                         <br>
                                         <h6>
-                                            <p class="h6"> Nombre: {{ pago.alumno.nombre | uppercase }} {{ pago.alumno.apellido | uppercase}} </p>
-                                            <p class="h6"> Cedula: {{ pago.alumno.cedula | uppercase }} </p>
-                                            <p class="h6"> Celular: {{ pago.alumno.celular }} </p>
+                                            <p class="h6"> Nombre: {{ prof.nombre | uppercase }} {{ prof.apellido | uppercase}} </p>
+                                            <p class="h6"> Cedula: {{ prof.cedula | uppercase }} </p>
+                                            <p class="h6"> Celular: {{ prof.celular }} </p>
                                         </h6>
                                         <form>
 
@@ -216,14 +216,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let data of pago.pagos ; let i = index">
-                                                        <td style="font-size: 9px">{{ i+1 }}</td>
-                                                        <td style="font-size: 9px">{{ data.costo }}</td>
-                                                        <td style="font-size: 9px">{{ data.nombre | uppercase }}</td>
-                                                        <td style="font-size: 9px">{{ data.fecha | date: 'dd / MM / yyyy ' }}</td>
-                                                        <td style="font-size: 9px" *ngIf="data.pagado"><button type="button" class="btn btn-block btn-success btn-sm" disabled> <i class="fa fa-usd" ></i> Cuota Pagada  <i class="fa fa-check" ></i> </button></td>
-                                                        <td style="font-size: 9px" *ngIf="!data.pagado"><button type="button" class="btn btn-block btn-warning btn-sm" disabled> <i class="fa fa-usd" ></i> Cuota por Cancelar <i class="fa fa-remove" ></i> </button></td>
-                                                    </tr>
+
                                                 </tbody>
                                             </table>
 
@@ -258,14 +251,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let data of pago.pagos ; let i = index">
-                                                        <td style="font-size: 9px">{{ i+1 }}</td>
-                                                        <td style="font-size: 9px">{{ data.costo }}</td>
-                                                        <td style="font-size: 9px">{{ data.nombre | uppercase }}</td>
-                                                        <td style="font-size: 9px">{{ data.fecha | date: 'dd / MM / yyyy ' }}</td>
-                                                        <td style="font-size: 9px" *ngIf="data.pagado"><button type="button" class="btn btn-block btn-success btn-sm" disabled> <i class="fa fa-usd" ></i> Cuota Pagada  <i class="fa fa-check" ></i> </button></td>
-                                                        <td style="font-size: 9px" *ngIf="!data.pagado"><button type="button" class="btn btn-block btn-warning btn-sm" disabled> <i class="fa fa-usd" ></i> Cuota por Cancelar <i class="fa fa-remove" ></i> </button></td>
-                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                             <h6>
@@ -279,7 +265,7 @@
 
                                     </div>
                                     <br>
-                                    <button type="button" class="btn btn-info btn-block btn-sm" (click)="download()"> <i class="fa fa-print"></i> Pdf </button>
+                                    <button type="button" class="btn btn-info btn-block btn-sm"> <i class="fa fa-print"></i> Pdf </button>
                                     <br>
                                     <div class="modal-footer">
                                         <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
