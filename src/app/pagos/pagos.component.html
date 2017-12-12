@@ -118,6 +118,7 @@
                                                                                 <th width="5%">Costo</th>
                                                                                 <th class="text-center">Nombre</th>
                                                                                 <th width="10%">Pagar</th>
+                                                                                <th width="10%" *ngIf="usuario.nivel === 'ADMIN'">Editar</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -127,24 +128,33 @@
                                                                                 <td class="text-center">{{ data.nombre | uppercase }}</td>
                                                                                 <td *ngIf="data.pagado"><button type="button" class="btn btn-block btn-success btn-sm" disabled> <i class="fa fa-usd" ></i> Pagado  <i class="fa fa-check" ></i> </button></td>
                                                                                 <td *ngIf="!data.pagado"><button type="button" class="btn btn-block btn-warning btn-sm" disabled> <i class="fa fa-usd" ></i> Deuda <i class="fa fa-remove" ></i> </button></td>
+                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"><button type="button" class="btn btn-block btn-danger btn-sm" (click)="eliminarPago(select, data)" [disabled]="!data.pagado"> <i class="fa fa-trash" ></i> </button></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Costo</td>
                                                                                 <td> {{ costo }} </td>
                                                                                 <td></td>
                                                                                 <td></td>
+                                                                                <td  *ngIf="usuario.nivel === 'ADMIN'"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Pagado</td>
                                                                                 <td> {{ pagado }} </td>
                                                                                 <td></td>
                                                                                 <td></td>
+                                                                                <td  *ngIf="usuario.nivel === 'ADMIN'"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Debe</td>
                                                                                 <td> {{ costo - pagado }} </td>
                                                                                 <td></td>
                                                                                 <td></td>
+                                                                                <td  *ngIf="usuario.nivel === 'ADMIN'"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="5"> 
+                                                                                    <button type="button" class="btn btn-info btn-block btn-sm" (click)="download()"> <i class="fa fa-print"></i> Pdf </button>
+                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>

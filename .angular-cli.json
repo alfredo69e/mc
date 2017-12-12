@@ -37,7 +37,9 @@
             "../src/assets/vendor/jquery.cookie/jquery.cookie.js",
             "../src/assets/vendor/jquery-validation/jquery.validate.min.js",
             "../src/assets/js/charts-home.js",
-            "../src/assets/js/front.js"
+            "../src/assets/js/front.js",
+            "../src/assets/js/jspdf.min.js",
+            "../src/assets/js/jspdf.plugin.autotable.js"
 
         ],
         "environmentSource": "environments/environment.ts",

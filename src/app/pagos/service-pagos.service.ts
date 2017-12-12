@@ -43,7 +43,15 @@ export class ServicePagosService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({ headers: headers });
-    return this.http.put(`${this.url}/${data._id}`, body, options);
+    return this.http.post(`${this.url}`, body, options);
+  }
+
+  eliminarPago(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/Array`, body, options);
   }
 
 
