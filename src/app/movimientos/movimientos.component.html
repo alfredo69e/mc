@@ -1,0 +1,52 @@
+<ngx-loading [show]='loading' [config]="{ backdropBorderRadius: '14px', fullScreenBackdrop: true }"></ngx-loading>
+
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Movimientos</h2>
+    </div>
+</header>
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a>Home</a>
+        </li>
+        <li class="breadcrumb-item active">Movimientos</li>
+    </ul>
+</div>
+
+<!-- Forms Section-->
+<section class="forms">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Basic Form-->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">Formulario de Movimientos</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-lg-6">
+                                            <label class="form-control-label">Fecha Inicio</label>
+                                            <datepicker [(ngModel)]="fecha.inicio" [viewFormat]="'DD/MM/YYYY'" [modelFormat]="'YYYY-MM-DD'" [id]="'firstDate'" [label]="'To'"></datepicker>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 col-lg-6">
+                                            <label class="form-control-label">Fecha Fin</label>
+                                            <datepicker [(ngModel)]="fecha.fin" [viewFormat]="'DD/MM/YYYY'" [modelFormat]="'YYYY-MM-DD'" [id]="'firstDate'" [label]="'To'"></datepicker>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { Select2Module } from 'ng2-select2';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MyDatePickerModule } from 'mydatepicker';
 // import { DropdownModule } from 'ngx-dropdowns';
 // import { Select2Component } from 'angular-select2-component';
 
@@ -28,6 +29,7 @@ import { EditarMateriaComponent } from './materia/editar-materia/editar-materia.
 import { MatriculaComponent } from './matricula/matricula.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ProfesorComponent } from './pagos/profesor/profesor.component';
+import { MovimientosComponent } from './movimientos/movimientos.component';
 
 // services
 import { AuthService } from './auth.service';
@@ -52,6 +54,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 
+
 const appRoutes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'Dashboard', component: DashboardComponent },
@@ -66,6 +69,7 @@ const appRoutes: Routes = [
   { path: 'Matricula', component: MatriculaComponent },
   { path: 'Pagos', component: PagosComponent },
   { path: 'Pagos/Profesor', component: ProfesorComponent },
+  { path: 'Movimientos', component: MovimientosComponent },
   { path: '', redirectTo: '/Login', pathMatch: 'full'},
 ];
 
@@ -94,7 +98,8 @@ const appRoutes: Routes = [
     FilterMateriaPipe,
     MatriculaComponent,
     PagosComponent,
-    ProfesorComponent
+    ProfesorComponent,
+    MovimientosComponent
     //  Select2Component
   ],
   imports: [
@@ -110,7 +115,8 @@ const appRoutes: Routes = [
     Select2Module,
     NgxPaginationModule,
     FilterPipeModule,
-  //  DropdownModule
+    MyDatePickerModule
+    //  DropdownModule
     // other imports here
   ],
   providers: [

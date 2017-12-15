@@ -31,8 +31,8 @@ export class ServicePagosService {
   }
 
   getPagoProfe() {
-    let prof = [];
-    return prof = [{ id: 1, pago: 8, comida: 1.5  }];
+    let prof = {};
+    return prof = { id: 1, pago: 8, comida: 1.5  };
   }
 
   buscar(data) {
@@ -51,6 +51,14 @@ export class ServicePagosService {
     return this.http.post(`${this.url}`, body, options);
   }
 
+  guardarPagoProf(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/profesor/guardar`, body, options);
+  }
+
   eliminarPago(data) {
     const body = JSON.stringify(data);
     const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -64,7 +72,7 @@ export class ServicePagosService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.url}/buscarProfesor`, body, options);
+    return this.http.post(`${this.url}`, body, options);
   }
 
   buscarProf(data) {
@@ -72,7 +80,15 @@ export class ServicePagosService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.url}/profesor`, body, options);
+    return this.http.post(`${this.url}/profesor/buscar`, body, options);
+  }
+
+  eliminarPagoProf(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/profesor/eliminar/pago`, body, options);
   }
 
 

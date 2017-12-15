@@ -40,7 +40,7 @@ export class PagosComponent implements OnInit {
     this.pago.alumno = {};
    }
 
-  session() {
+   session() {
     this.authService.session()
       .subscribe(res => {
         this.usuario = res.json();

@@ -46,7 +46,7 @@
 
                         <br>
 
-                        <div *ngIf="verDatos">
+                        <div *ngIf="verDat">
                             <!-- Basic Form-->
                             <div class="col-lg-12">
                                 <div class="card">
@@ -103,7 +103,7 @@
                                     <div class="col-lg-12 col-sm-12 col-md-12">
                                         <div class="card">
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Cuatrimestre</h3>
+                                                <h3 class="h4">Pagos Realizados</h3>
                                             </div>
                                             <div class="card-body">
                                                 <form>
@@ -111,58 +111,78 @@
                                                         <div class="col-sm-12">
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-lg-12">
-                                                                    <table class="table" width="100%">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th width="5%">#</th>
-                                                                                <th width="5%">Costo</th>
-                                                                                <th class="text-center">Detalle</th>
-                                                                                <th class="text-center"> Fecha </th>
-                                                                                <th width="10%">Pagar</th>
-                                                                                <th width="10%" *ngIf="usuario.nivel === 'ADMIN'">Editar</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr *ngFor="let data of prof.pago ; let i = index">
-                                                                                <td scope="row">{{ i+1 }}</td>
-                                                                                <td class="text-center">{{ data.costo }}</td>
-                                                                                <td class="text-center">{{ data.nombre | uppercase }}</td>
-                                                                                <td class="text-center">{{ data.fecha | date: 'dd / MM / yyyy ' }}</td>
-                                                                                <td *ngIf="data.pagado"><button type="button" class="btn btn-block btn-success btn-sm" disabled> <i class="fa fa-usd" ></i> Pagado  <i class="fa fa-check" ></i> </button></td>
-                                                                                <td *ngIf="!data.pagado"><button type="button" class="btn btn-block btn-warning btn-sm" disabled> <i class="fa fa-usd" ></i> Deuda <i class="fa fa-remove" ></i> </button></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"><button type="button" class="btn btn-block btn-danger btn-sm" (click)="eliminarPago(select, data)" [disabled]="!data.pagado"> <i class="fa fa-trash" ></i> </button></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Monto Total</td>
-                                                                                <td> {{ costo }} </td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Abonado</td>
-                                                                                <td> {{ pagado }} </td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Saldo Pendiente</td>
-                                                                                <td> {{ costo - pagado }} </td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="6">
-                                                                                    <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"> <i class="fa fa-print"></i> Imprimir </button>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
+                                                                    <div *ngIf="!verPago">
+                                                                        <table class="table" width="100%">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th width="5%">#</th>
+                                                                                    <th width="10%">Pago</th>
+                                                                                    <th width="10%">Comida</th>
+                                                                                    <th class="text-center">Detalle</th>
+                                                                                    <th class="text-center"> Fecha </th>
+                                                                                    <th width="10%">Imprimir</th>
+                                                                                    <th width="10%" *ngIf="usuario.nivel === 'ADMIN'">Editar</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr *ngFor="let data of prof.pago | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
+                                                                                    <td scope="row">{{ i+1 }}</td>
+                                                                                    <td class="text-center">{{ data.costo }} $</td>
+                                                                                    <td class="text-center">{{ data.comida }} $</td>
+                                                                                    <td class="text-center">{{ data.comentario | uppercase }}</td>
+                                                                                    <td class="text-center">{{ data.creado | date: 'dd / MM / yyyy ' }}</td>
+                                                                                    <td><button type="button" class="btn btn-block btn-warning btn-sm" (click)="download(prof, data)"> <i class="fa fa-print" ></i> </button></td>
+                                                                                    <td *ngIf="usuario.nivel === 'ADMIN'"><button type="button" class="btn btn-block btn-danger btn-sm" (click)="eliminarPagoProf(prof, data)"> <i class="fa fa-trash" ></i> </button></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td colspan="6">
+                                                                                        <div class="pull-right">
+                                                                                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td colspan="6">
+                                                                                        <button type="button" class="btn btn-primary" (click)="pagoVer()"> <i class="fa fa-usd"></i> Pagar </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+
+                                                                    <div *ngIf="verPago">
+                                                                        <form>
+
+                                                                            <div class="col-sm-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                                                                        <label class="form-control-label">Pago</label>
+                                                                                        <input type="number" placeholder="Ingresa Pago" class="form-control" #costo="ngModel" name="costo" [(ngModel)]="pagar.costo">
+                                                                                    </div>
+                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                                                                        <label class="form-control-label">Costo Comida</label>
+                                                                                        <input type="number" placeholder="Ingresa Costo Comida" class="form-control" #comida="ngModel" name="comida" [(ngModel)]="pagar.comida">
+                                                                                    </div>
+                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                                                                        <label class="form-control-label">Comentario</label>
+                                                                                        <input type="text" placeholder="Ingresa Comentario" class="form-control" #comentario="ngModel" name="comentario" [(ngModel)]="pagar.comentario">
+                                                                                    </div>
+
+                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                                                                        <br>
+                                                                                        <button type="button" class="btn btn-primary btn-block btn-sm" (click)="guardarPago(prof, pagar)"> <i class="fa fa-print"></i> Generar Pago </button>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                                                                        <br>
+                                                                                        <button type="button" class="btn btn-info btn-sm pull-right" (click)="volver()"> <i class="fa fa-refresh"></i> Volver </button>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -170,105 +190,6 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <button type="button" class="btn btn-primary btn-block" (click)="guardarPago(pago)">Registrar Pago</button>
-                            </div>
-
-                        </div>
-
-                        <!-- Modal-->
-                        <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                            <div role="document" class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 id="exampleModalLabel" class="modal-title"> Dcoumento no Fiscal </h4>
-                                        <button type="button" data-dismiss="modal" aria-label="Close" class="close">
-                                <span aria-hidden="true">×</span>
-                                             </button>
-                                    </div>
-                                    <div class="modal-body" id="imprimir">
-                                        <h2 class="text-center"> Comprobante de Pago </h2>
-                                        <h4 class="text-center"> Documento no Fiscal </h4>
-                                        <p class="h6"> Recibo: N° {{ pago.recibo._id }} </p>
-                                        <br>
-                                        <h6>
-                                            <p class="h6"> Nombre: {{ prof.nombre | uppercase }} {{ prof.apellido | uppercase}} </p>
-                                            <p class="h6"> Cedula: {{ prof.cedula | uppercase }} </p>
-                                            <p class="h6"> Celular: {{ prof.celular }} </p>
-                                        </h6>
-                                        <form>
-
-                                            <hr>
-
-                                            <table class="table" border="0" width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Costo</th>
-                                                        <th class="text-center">Detalle</th>
-                                                        <th class="text-center"> Fecha </th>
-                                                        <th>Pagar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-
-                                            <h6>
-                                                <p class="h6"> Monto Total: {{ costo }} </p>
-                                                <p class="h6"> Abonado: {{ pagado }} </p>
-                                                <p class="h6"> Saldo Pendiente: {{ costo - pagado }} </p>
-                                            </h6>
-
-                                            <br>
-
-                                            <hr>
-                                            <br>
-                                            <h2 class="text-center"> Comprobante de Pago </h2>
-                                            <h4 class="text-center"> Copia Documento no Fiscal </h4>
-                                            <p class="h6"> Recibo: N° {{ pago.recibo._id }} </p>
-                                            <br>
-                                            <h6>
-                                                <p class="h6"> Nombre: {{ pago.alumno.nombre | uppercase }} {{ pago.alumno.apellido | uppercase}} </p>
-                                                <p class="h6"> Cedula: {{ pago.alumno.cedula | uppercase }} </p>
-                                                <p class="h6"> Celular: {{ pago.alumno.celular }} </p>
-                                            </h6>
-                                            <hr>
-                                            <table class="table" border="0" width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Costo</th>
-                                                        <th class="text-center">Detalle</th>
-                                                        <th class="text-center"> Fecha </th>
-                                                        <th>Pagar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                            <h6>
-                                                <p class="h6"> Monto Total: {{ costo }} </p>
-                                                <p class="h6"> Abonado: {{ pagado }} </p>
-                                                <p class="h6"> Saldo Pendiente: {{ costo - pagado }} </p>
-                                            </h6>
-
-
-                                        </form>
-
-                                    </div>
-                                    <br>
-                                    <button type="button" class="btn btn-info btn-block btn-sm"> <i class="fa fa-print"></i> Pdf </button>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
                                     </div>
                                 </div>
                             </div>
