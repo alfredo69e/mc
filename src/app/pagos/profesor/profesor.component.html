@@ -86,12 +86,50 @@
                                                             <label class="form-control-label">Dirección</label>
                                                             <textarea rows="3" type="text" placeholder="Ingresa Nombre" class="form-control" disabled> {{ prof.direccion }} </textarea>
                                                         </div>
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <button type="button" class="btn btn-primary" (click)="pagoVer()"> <i class="fa fa-usd"></i> Pagar </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div *ngIf="verPago">
+                                <form>
+                            
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <label class="form-control-label">Pago</label>
+                                                <input type="number" placeholder="Ingresa Pago" class="form-control" #costo="ngModel" name="costo" [(ngModel)]="pagar.costo">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <label class="form-control-label">Costo Comida</label>
+                                                <input type="number" placeholder="Ingresa Costo Comida" class="form-control" #comida="ngModel" name="comida" [(ngModel)]="pagar.comida">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <label class="form-control-label">Comentario</label>
+                                                <input type="text" placeholder="Ingresa Comentario" class="form-control" #comentario="ngModel" name="comentario" [(ngModel)]="pagar.comentario">
+                                            </div>
+                            
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <br>
+                                                <button type="button" class="btn btn-primary btn-block btn-sm" (click)="guardarPago(prof, pagar)">
+                                                    <i class="fa fa-print"></i> Generar Pago </button>
+                                            </div>
+                            
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <br>
+                                                <button type="button" class="btn btn-info btn-sm pull-right" (click)="volver()">
+                                                    <i class="fa fa-refresh"></i> Volver </button>
+                                            </div>
+                                        </div>
+                            
+                                    </div>
+                                </form>
                             </div>
 
 
@@ -116,6 +154,7 @@
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th width="5%">#</th>
+                                                                                    <th width="10%">Recibo</th>
                                                                                     <th width="10%">Pago</th>
                                                                                     <th width="10%">Comida</th>
                                                                                     <th class="text-center">Detalle</th>
@@ -125,8 +164,9 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                                <tr *ngFor="let data of prof.pago | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
+                                                                                <tr *ngFor="let data of pagos | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
                                                                                     <td scope="row">{{ i+1 }}</td>
+                                                                                    <td class="text-center"> Nº {{ data._id }} </td>
                                                                                     <td class="text-center">{{ data.costo }} $</td>
                                                                                     <td class="text-center">{{ data.comida }} $</td>
                                                                                     <td class="text-center">{{ data.comentario | uppercase }}</td>
@@ -135,15 +175,10 @@
                                                                                     <td *ngIf="usuario.nivel === 'ADMIN'"><button type="button" class="btn btn-block btn-danger btn-sm" (click)="eliminarPagoProf(prof, data)"> <i class="fa fa-trash" ></i> </button></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td colspan="6">
+                                                                                    <td colspan="7">
                                                                                         <div class="pull-right">
                                                                                             <pagination-controls (pageChange)="p = $event"></pagination-controls>
                                                                                         </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td colspan="6">
-                                                                                        <button type="button" class="btn btn-primary" (click)="pagoVer()"> <i class="fa fa-usd"></i> Pagar </button>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -151,38 +186,7 @@
 
                                                                     </div>
 
-                                                                    <div *ngIf="verPago">
-                                                                        <form>
-
-                                                                            <div class="col-sm-12">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
-                                                                                        <label class="form-control-label">Pago</label>
-                                                                                        <input type="number" placeholder="Ingresa Pago" class="form-control" #costo="ngModel" name="costo" [(ngModel)]="pagar.costo">
-                                                                                    </div>
-                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
-                                                                                        <label class="form-control-label">Costo Comida</label>
-                                                                                        <input type="number" placeholder="Ingresa Costo Comida" class="form-control" #comida="ngModel" name="comida" [(ngModel)]="pagar.comida">
-                                                                                    </div>
-                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
-                                                                                        <label class="form-control-label">Comentario</label>
-                                                                                        <input type="text" placeholder="Ingresa Comentario" class="form-control" #comentario="ngModel" name="comentario" [(ngModel)]="pagar.comentario">
-                                                                                    </div>
-
-                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
-                                                                                        <br>
-                                                                                        <button type="button" class="btn btn-primary btn-block btn-sm" (click)="guardarPago(prof, pagar)"> <i class="fa fa-print"></i> Generar Pago </button>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-12 col-sm-12 col-lg-12">
-                                                                                        <br>
-                                                                                        <button type="button" class="btn btn-info btn-sm pull-right" (click)="volver()"> <i class="fa fa-refresh"></i> Volver </button>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>

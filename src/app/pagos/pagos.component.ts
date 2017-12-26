@@ -27,9 +27,11 @@ export class PagosComponent implements OnInit {
   pagado;
   data;
   usuario;
+  abrirRealizarPago;
+  regPago;
 
   constructor(private servicePagosService: ServicePagosService, private authService: AuthService  ) {
-
+    this.regPago = {};
     this.pago = [];
     this.select = {};
     this.busqueda = this.servicePagosService.getBusqueda();
@@ -55,11 +57,12 @@ export class PagosComponent implements OnInit {
      this.servicePagosService.buscar(data)
        .subscribe(res => {
          this.pago = res.json();
-         this.pago.pagos = this.servicePagosService.getPagos();
+     /*  this.pago.pagos = this.servicePagosService.getPagos();
          this.pago.buscar = data;
-         this.getPagos();
+         this.getPagos();*/
          this.loading = false;
          this.verDatos = true;
+         console.log(this.pago);
        },
        err => {
          this.errDatos = JSON.parse(err._body);
@@ -70,20 +73,15 @@ export class PagosComponent implements OnInit {
        });
    }
 
-   guardarPago(data) {
-      this.valido = false;
-     for (let i = 0; i < this.pago.pagos.length; i++) {
-      if (this.pago.pagos[i].pagado !== true && this.valido === false) {
-        this.pago.cobro = { id: this.pago.pagos[i].id, nombre: this.pago.pagos[i].nombre,
-                              costo: this.pago.pagos[i].costo
-                              };
-        this.valido = true;
-      }
+   guardarPago(pago, regPago) {
+     this.loading = true;
+      this.valido = true;
+     this.data = { pago, regPago };
+     if (this.pagado === this.pago.recibo.costo) {
+       this.valido = false;
      }
-
      if (this.valido) {
-       this.loading = true;
-     this.servicePagosService.guardar(data)
+       this.servicePagosService.guardar(this.data)
        .subscribe(res => {
          this.getdatos = res.json();
          swal(this.getdatos.nombre, this.getdatos.message, 'success');
@@ -99,31 +97,16 @@ export class PagosComponent implements OnInit {
          this.verDatos = false;
        });
       }else {
+       this.loading = false;
         swal('Cobros', 'No tiene mas Cobros por Realizar', 'warning');
      }
    }
 
    getPagos() {
      this.pagado = 0;
-     for (let i = 0; i < this.pago.recibo.pagos.length; i++) {
-       for (let j = 0; j < this.pago.pagos.length; j++) {
-         if (this.pago.recibo.pagos[i].id === this.pago.pagos[j].id) {
-           this.pago.pagos[j] = ({ id: this.pago.pagos[j].id, nombre: this.pago.pagos[j].nombre,
-                              costo: this.pago.pagos[j].costo,  pagado: true,
-                              fecha: this.pago.recibo.pagos[i].creado
-                            });
-            this.pagado = this.pagado + this.pago.pagos[j].costo;
-         }
+     for (let i = 0; i < this.pago.pago.length; i++) {
+            this.pagado = this.pagado + this.pago.pago[i].costo;
        }
-     }
-    this.getCosto();
-   }
-
-   getCosto() {
-      this.costo = 0;
-     for (let i = 0; i < this.pago.pagos.length; i++) {
-       this.costo = this.costo + this.pago.pagos[i].costo;
-     }
    }
 
    eliminarPago(select, data) {
@@ -146,6 +129,15 @@ export class PagosComponent implements OnInit {
        });
 
    }
+
+  realizarPago() {
+    this.abrirRealizarPago = true;
+  }
+
+  volver() {
+    this.regPago = {};
+    this.abrirRealizarPago = false;
+  }
 
 
    download() {

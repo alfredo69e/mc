@@ -60,4 +60,12 @@ export class ServiceProfesorService {
     return this.http.put(`${this.url}/${data._id}`, body, options);
   }
 
+  validarCelular(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/validateCelular`, body, options);
+  }
+
 }

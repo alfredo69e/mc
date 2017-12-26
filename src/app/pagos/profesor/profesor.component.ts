@@ -32,8 +32,10 @@ public verDat;
   pagar;
   verPago;
   imprimir;
+  datos;
 
   constructor(private servicePagosService: ServicePagosService, private authService: AuthService) {
+    this.pagos = [];
     this.prof = [];
     this.select = {};
     this.busqueda = this.servicePagosService.getBusqueda();
@@ -58,7 +60,9 @@ public verDat;
      this.loading = true;
      this.servicePagosService.buscarProf(data)
        .subscribe(res => {
-         this.prof = res.json();
+         this.datos = res.json();
+         this.prof = this.datos.prof;
+         this.pagos = this.datos.pagos;
          this.loading = false;
          this.verDat = true;
        },
@@ -76,9 +80,9 @@ public verDat;
    }
 
      guardarPago(prof, pagar) {
+       this.loading = true;
        this.data = { prof: prof, pagar: pagar };
       this.valido = false;
-       this.loading = true;
      this.servicePagosService.guardarPagoProf(this.data)
        .subscribe(res => {
          this.getdatos = res.json();
@@ -101,6 +105,7 @@ public verDat;
 
    volver() {
       this.verPago = false;
+      this.pagar = {};
    }
 
    selection(data) {

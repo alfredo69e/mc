@@ -21,20 +21,6 @@ export class ServicePagosService {
                   ];
   }
 
-  getPagos() {
-    let data = [];
-    return data = [{ id: 1, nombre: 'Inscripcion', costo: 30 }, { id: 2, nombre: 'Primer pago', costo: 25 },
-                   { id: 3, nombre: 'Segundo pago', costo: 24 }, { id: 4, nombre: 'Tercer pago', costo: 24 },
-                   { id: 5, nombre: 'Cuarto pago', costo: 24 }, { id: 6, nombre: 'Quinto pago', costo: 24 },
-                   { id: 7, nombre: 'Sesto pago', costo: 24 }
-    ];
-  }
-
-  getPagoProfe() {
-    let prof = {};
-    return prof = { id: 1, pago: 8, comida: 1.5  };
-  }
-
   buscar(data) {
     const body = JSON.stringify(data);
     const headers = new Headers({ 'Content-Type': 'application/json' });

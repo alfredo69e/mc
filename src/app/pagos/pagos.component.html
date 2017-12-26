@@ -103,7 +103,7 @@
                                     <div class="col-lg-12 col-sm-12 col-md-12">
                                         <div class="card">
                                             <div class="card-header d-flex align-items-center">
-                                                <h3 class="h4">Cuatrimestre</h3>
+                                                <h3 class="h4">Cuatrimestre: {{ pago.recibo.matricula[0].nivel }}</h3>
                                             </div>
                                             <div class="card-body">
                                                 <form>
@@ -115,46 +115,15 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th width="5%">#</th>
-                                                                                <th width="5%">Costo</th>
-                                                                                <th class="text-center">Detalle</th>
-                                                                                <th class="text-center"> Fecha </th>
-                                                                                <th width="10%">Pagar</th>
-                                                                                <th width="10%" *ngIf="usuario.nivel === 'ADMIN'">Editar</th>
+                                                                                <th width="5%">U/C</th>
+                                                                                <th class="text-center">Materia</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <tr *ngFor="let data of pago.pagos ; let i = index">
+                                                                            <tr *ngFor="let data of pago.recibo.matricula[0].materias ; let i = index">
                                                                                 <td scope="row">{{ i+1 }}</td>
-                                                                                <td class="text-center">{{ data.costo }}</td>
+                                                                                <td class="text-center">{{ data.unidad_credito }}</td>
                                                                                 <td class="text-center">{{ data.nombre | uppercase }}</td>
-                                                                                <td class="text-center">{{ data.fecha | date: 'dd / MM / yyyy ' }}</td>
-                                                                                <td *ngIf="data.pagado"><button type="button" class="btn btn-block btn-success btn-sm" disabled> <i class="fa fa-usd" ></i> Pagado  <i class="fa fa-check" ></i> </button></td>
-                                                                                <td *ngIf="!data.pagado"><button type="button" class="btn btn-block btn-warning btn-sm" disabled> <i class="fa fa-usd" ></i> Deuda <i class="fa fa-remove" ></i> </button></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"><button type="button" class="btn btn-block btn-danger btn-sm" (click)="eliminarPago(select, data)" [disabled]="!data.pagado"> <i class="fa fa-trash" ></i> </button></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Monto Total</td>
-                                                                                <td> {{ costo }} </td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Abonado</td>
-                                                                                <td> {{ pagado }} </td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Saldo Pendiente</td>
-                                                                                <td> {{ costo - pagado }} </td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td *ngIf="usuario.nivel === 'ADMIN'"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="6">
@@ -172,9 +141,98 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-header d-flex align-items-center">
+                                                <h3 class="h4">Pagos Realizados</h3>
+                                            </div> 
+                                            <div class="card-body">
+                                                <table class="table table-striped table-sm">
+                                                    <thead>
+                                                        <tr *ngIf="pago.pago">
+                                                            <th colspan="5">No posee pagos realizados</th>
+                                                        </tr>
+                                                        <tr *ngIf="!pago.pago">
+                                                            <th>#</th>
+                                                            <th>Recibo</th>
+                                                            <th>Costo</th>
+                                                            <th>Detalle</th>
+                                                            <th>Fecha</th>
+                                                            <th *ngIf="">Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <div *ngIf="!pago.pago">                                     
+                                                        <tr *ngFor="let data of pago.pago ; let i = index" > 
+                                                            <th scope="row">{{ i+1 }}</th>
+                                                            <td>{{ data._id }}</td>
+                                                            <td>{{ data.costo }}</td>
+                                                            <td>{{ data.comentario }}</td>
+                                                            <td *ngIf="">@mdo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                costo: {{ pago.recibo.costo }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                Facturado: {{ pagado }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                Resta:  {{  pagado - pago.recibo.costo }}
+                                                            </td>
+                                                        </tr>
+                                                        </div>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <button type="button" class="btn btn-primary btn-block btn-sm" (click)="realizarPago()"><i class="fa fa-usd"> </i>  Realizar Pago </button>
+                                                                 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" *ngIf="abrirRealizarPago">
+                                        <div class="card">
+                                            <div class="card-header d-flex align-items-center">
+                                                <h3 class="h4"> Generar Pago</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <form class="form-horizontal">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 form-control-label">Costo</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="inputHorizontalWarning" type="number" placeholder="Costo" class="form-control form-control-warning" name="costo" [(ngModel)]="regPago.costo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 form-control-label">Comentario</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="inputHorizontalSuccess" type="text" placeholder="Comentario" class="form-control form-control-success" name="comentario" [(ngModel)]="regPago.comentario">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                                            <button type="button" class="btn btn-block bnt-sm btn-primary" (click)="guardarPago(pago, regPago)"> Pagar </button>
+                                                            <br>
+                                                            <button type="button" class="btn btn-info btn-sm pull-right" (click)="volver()"><i class="fa fa-refresh"></i> Volver </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
-
+                        
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <button type="button" class="btn btn-primary btn-block" (click)="guardarPago(pago)">Registrar Pago</button>
                             </div>

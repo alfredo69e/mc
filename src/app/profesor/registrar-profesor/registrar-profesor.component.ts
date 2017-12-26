@@ -16,6 +16,7 @@ export class RegistrarProfesorComponent implements OnInit {
   public errDatos;
   public validCorreo;
   public validCedula;
+  validCelular;
 
   constructor(private serviceProfesorService: ServiceProfesorService) {
     this.profesor = {};
@@ -23,6 +24,7 @@ export class RegistrarProfesorComponent implements OnInit {
    }
 
    guardar(data) {
+     this.loading = true;
      this.serviceProfesorService.guardar(data)
        .subscribe(res => {
          this.datos = res.json();
@@ -35,34 +37,55 @@ export class RegistrarProfesorComponent implements OnInit {
          this.loading = false;
          swal(this.errDatos.nombre, this.errDatos.message, 'error');
          console.log(this.errDatos);
+         this.loading = false;
        });
    }
 
   validarCorreo(data) {
+    this.loading = true;
     this.serviceProfesorService.validarCorreo(data)
       .subscribe(res => {
         this.datos = res.json();
         this.validCorreo = this.datos;
-        console.log(this.validCorreo);
+        this.loading = false;
       },
       error => {
         this.errDatos = JSON.parse(error._body);
         swal(this.errDatos.nombre, this.errDatos.message, 'error');
         console.log(this.errDatos);
+         this.loading = false;
       });
   }
 
   validarCedula(data) {
+    this.loading = true;
     this.serviceProfesorService.validarCedula(data)
       .subscribe(res => {
         this.datos = res.json();
         this.validCedula = this.datos;
-        console.log(this.validCedula);
+        this.loading = false;
       },
       error => {
         this.errDatos = JSON.parse(error._body);
         swal(this.errDatos.nombre, this.errDatos.message, 'error');
         console.log(this.errDatos);
+         this.loading = false;
+      });
+  }
+
+  validarCelular(data) {
+    this.loading = true;
+    this.serviceProfesorService.validarCelular(data)
+      .subscribe(res => {
+        this.datos = res.json();
+        this.validCelular = this.datos;
+        this.loading = false;
+      },
+      error => {
+        this.errDatos = JSON.parse(error._body);
+        swal(this.errDatos.nombre, this.errDatos.message, 'error');
+        console.log(this.errDatos);
+         this.loading = false;
       });
   }
 

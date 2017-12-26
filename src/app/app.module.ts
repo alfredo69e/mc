@@ -7,7 +7,8 @@ import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { Select2Module } from 'ng2-select2';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MyDatePickerModule } from 'mydatepicker';
+import { NgDatepickerModule } from 'ng2-datepicker';
+// import { MyDatePickerModule } from 'mydatepicker';
 // import { DropdownModule } from 'ngx-dropdowns';
 // import { Select2Component } from 'angular-select2-component';
 
@@ -39,6 +40,7 @@ import { ServiceAlumnoService } from './alumno/service-alumno.service';
 import { ServiceMateriaService } from './materia/service-materia.service';
 import { ServiceMatriculaService } from './matricula/service-matricula.service';
 import { ServicePagosService } from './pagos/service-pagos.service';
+import { ServiceMovimientosService } from './movimientos/service-movimientos.service';
 
 
 
@@ -115,7 +117,8 @@ const appRoutes: Routes = [
     Select2Module,
     NgxPaginationModule,
     FilterPipeModule,
-    MyDatePickerModule
+    NgDatepickerModule
+    // MyDatePickerModule
     //  DropdownModule
     // other imports here
   ],
@@ -126,7 +129,8 @@ const appRoutes: Routes = [
     ServiceAlumnoService,
     ServiceMateriaService,
     ServiceMatriculaService,
-    ServicePagosService
+    ServicePagosService,
+    ServiceMovimientosService
   ],
   bootstrap: [AppComponent]
 })

@@ -67,15 +67,17 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Celular</label>
-                <input type="text" placeholder="Ingresa Celular" class="form-control" #celular="ngModel" name="celular" [(ngModel)]="profesor.celular" required>
-                <span *ngIf="!celular.valid && celular.touched" class="text-danger">La cedula es obligatorio</span>
+                <input type="text" placeholder="Ingresa Celular" class="form-control" #celular="ngModel" name="celular" [(ngModel)]="profesor.celular"
+                    (blur)="validarCelular(profesor)" required>
+                <span *ngIf="!celular.valid && celular.touched" class="text-danger">El celular es obligatorio</span>
+                <span *ngIf="validCelular" class="text-danger">Celular ya Registrado</span>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Correo</label>
                 <input type="text" placeholder="Ingresa Correo" class="form-control" #correo="ngModel" name="correo" [(ngModel)]="profesor.correo"
                   (blur)="validarCorreo(profesor)" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
                 <span *ngIf="!correo.valid && correo.touched" class="text-danger">Email no es correcto</span>
-                <span *ngIf="validCorreo" class="text-info">Correo ya Registrado</span>
+                <span *ngIf="validCorreo" class="text-danger">Correo ya Registrado</span>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Direccion</label>
@@ -84,7 +86,7 @@
                 <span *ngIf="!direccion.valid && direccion.touched" class="text-danger">Email no es correcto</span>
               </div>
               <div class="form-group">
-                <button type="button" (click)="guardar(profesor)" class="btn btn-primary btn-block" [disabled]="profesorForm.form.invalid || validCorreo || validCedula">Registrar</button>
+                <button type="button" (click)="guardar(profesor)" class="btn btn-primary btn-block" [disabled]="profesorForm.form.invalid || validCorreo || validCedula || validCelular">Registrar</button>
               </div>
             </form>
           </div>

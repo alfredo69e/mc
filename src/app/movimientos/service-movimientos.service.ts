@@ -8,6 +8,18 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ServiceMovimientosService {
 
-  constructor() { }
+  // config
+  private url = '/api/movimiento';
+  private authorization = '';
+
+  constructor(private http: Http) { }
+
+  buscar(data) {
+    const body = JSON.stringify(data);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(`${this.url}/buscar`, body, options);
+  }
 
 }

@@ -58,9 +58,10 @@ export class MatriculaComponent implements OnInit {
            this.loading = true;
           this.serviceMatriculaService.buscar(data)
               .subscribe( res => {
-                   this.matricula = res.json();
+                this.matricula = res.json();
                    this.loading = false;
                    this.verDatos = true;
+                console.log(this.matricula);
               },
               err => {
               this.errDatos = JSON.parse(err._body);
