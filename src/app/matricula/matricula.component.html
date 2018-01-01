@@ -118,7 +118,7 @@
                                                         <th class="text-center">Cuatrimestre</th>
                                                         <th class="text-center">Materias</th>
                                                         <th class="text-center">Finalizo</th>
-                                                        <th width="10%">Editar</th>
+                                                        <th width="10%" *ngIf="usuario.nivel === 'ADMIN'">Editar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody *ngFor="let data of matricula.matri ; let i = index">
@@ -139,7 +139,9 @@
                                                        </div>
                                                     </td>
                                                     <td class="text-center"> {{ data.finalizo }} </td>
-                                                    <td class="text-center"></td>
+                                                    <td class="text-center" *ngIf="usuario.nivel === 'ADMIN'">
+                                                        <button type="submit" class="btn btn-sm btn-danger" (click)="eliminar(data)"><i class="fa fa-trash"></i></button>
+                                                    </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -233,7 +235,7 @@
 </div>
                
 <div class="col-sm-12 col-md-12 col-lg-12">
-    <button type="button" class="btn btn-primary btn-block" (click)="guardar(matricula)" >Registrar</button>
+    <button type="button" class="btn btn-primary btn-block" (click)="guardar(matricula)" [disabled]="!activarMat || !matricula.costo" >Registrar</button>
 </div>
 
 </div>

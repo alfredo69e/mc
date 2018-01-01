@@ -3,6 +3,7 @@ import swal from 'sweetalert2';
 import { Select2OptionData } from 'ng2-select2';
 import { ServiceMatriculaService } from './service-matricula.service';
 import { ServiceMateriaService } from '../materia/service-materia.service';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -31,9 +32,11 @@ export class MatriculaComponent implements OnInit {
   realizarPagos;
   datos;
   verDatos;
+  datosEli;
+  usuario;
 
   constructor(private serviceMatriculaService: ServiceMatriculaService,
-              private serviceMateriaService: ServiceMateriaService) {
+    private serviceMateriaService: ServiceMateriaService, private authService: AuthService ) {
 
                 this.selectAnoCurso = [];
                 this.matricula = [];
@@ -44,6 +47,7 @@ export class MatriculaComponent implements OnInit {
                 this.select = {};
                 this.select.dato = 'cedula';
                 this.ano_Curso = this.serviceMateriaService.anoCurso;
+                this.usuario = {};
               }
 
             getDatos() {
@@ -61,7 +65,6 @@ export class MatriculaComponent implements OnInit {
                 this.matricula = res.json();
                    this.loading = false;
                    this.verDatos = true;
-                console.log(this.matricula);
               },
               err => {
               this.errDatos = JSON.parse(err._body);
@@ -107,13 +110,32 @@ export class MatriculaComponent implements OnInit {
         });
     }
 
-    selecAlumno() {
-
-    }
-
   eliminar(data) {
-    const index = this.matricula.materias.indexOf(data);
-    this.matricula.materias.splice(index, 1);
+    this.loading = true;
+    this.serviceMatriculaService.eliminar(data)
+      .subscribe(res => {
+        this.datosEli = res.json();
+        swal(this.datosEli.nombre, this.datosEli.message, 'success');
+        this.verDatos = true;
+        this.buscarUsuario(this.select);
+      },
+      err => {
+        this.errDatos = JSON.parse(err._body);
+        this.loading = false;
+        swal(this.errDatos.nombre, this.errDatos.message, 'error');
+        console.log(this.errDatos);
+        this.verDatos = false;
+      });
+  }
+
+  session() {
+    this.authService.session()
+      .subscribe(res => {
+        this.usuario = res.json();
+      },
+      err => {
+        this.errDatos = err;
+      });
   }
 
 
@@ -162,6 +184,7 @@ export class MatriculaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.session();
   }
 
 }

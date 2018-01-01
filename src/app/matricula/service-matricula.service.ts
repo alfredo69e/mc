@@ -39,4 +39,11 @@ export class ServiceMatriculaService {
     return this.http.post(`${this.url}/guardar`, body, options);
   }
 
+  eliminar(data) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.delete(`${this.url}/${data._id}`, options);
+  }
+
 }

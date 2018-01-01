@@ -28,6 +28,8 @@ export class MovimientosComponent implements OnInit {
     locale: esLocale
   };
 
+  fondos;
+
   constructor(private serviceMovimientosService: ServiceMovimientosService) {
     this.date = {};
     this.date.inicio = this.sumarDias(new Date(), -7);
@@ -40,12 +42,13 @@ export class MovimientosComponent implements OnInit {
   }
 
   buscar(data) {
+    this.datos = [];
     this.loading = true;
     this.serviceMovimientosService.buscar(data)
        .subscribe(res => {
          this.datos = res.json();
          this.verDat = true;
-         console.log(this.datos);
+         this.loading = false;
        },
        err => {
          this.errDatos = JSON.parse(err._body);
@@ -56,6 +59,9 @@ export class MovimientosComponent implements OnInit {
        });
   }
 
+  volver() {
+    this.verDat = false;
+  }
 
   ngOnInit() {
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { ServicePagosService } from '../service-pagos.service';
 import { AuthService } from '../../auth.service';
-import { Console } from '@angular/core/src/console';
 
 declare let jsPDF;
 
@@ -112,10 +111,9 @@ public verDat;
   this.select.dato = data.nombre;
 }
 
-  eliminarPagoProf(prof, data) {
-     this.data = { prof: prof, data: data };
+  eliminarPagoProf(data) {
      this.loading = true;
-     this.servicePagosService.eliminarPagoProf(this.data)
+     this.servicePagosService.eliminarPagoProf(data)
        .subscribe(res => {
          this.getdatos = res.json();
          swal(this.getdatos.nombre, this.getdatos.message, 'success');

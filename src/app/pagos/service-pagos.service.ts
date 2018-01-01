@@ -46,11 +46,10 @@ export class ServicePagosService {
   }
 
   eliminarPago(data) {
-    const body = JSON.stringify(data);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.url}/Array`, body, options);
+    return this.http.delete(`${this.url}/${data._id}`, options);
   }
 
   pagoProf(data) {
@@ -70,12 +69,27 @@ export class ServicePagosService {
   }
 
   eliminarPagoProf(data) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.delete(`${this.url}/profesor/${data._id}`, options);
+  }
+
+  pagoVarios(data) {
     const body = JSON.stringify(data);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(`${this.url}/profesor/eliminar/pago`, body, options);
+    return this.http.post(`${this.url}/varios`, body, options);
   }
+
+  getVarios() {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'Bearer ' + localStorage.getItem('token'));
+    const options = new RequestOptions({ headers: headers });
+    return this.http.get(`${this.url}/varios`, options);
+  }
+
 
 
 }

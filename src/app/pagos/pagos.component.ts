@@ -57,12 +57,9 @@ export class PagosComponent implements OnInit {
      this.servicePagosService.buscar(data)
        .subscribe(res => {
          this.pago = res.json();
-     /*  this.pago.pagos = this.servicePagosService.getPagos();
-         this.pago.buscar = data;
-         this.getPagos();*/
          this.loading = false;
          this.verDatos = true;
-         console.log(this.pago);
+         this.getPagos();
        },
        err => {
          this.errDatos = JSON.parse(err._body);
@@ -85,9 +82,11 @@ export class PagosComponent implements OnInit {
        .subscribe(res => {
          this.getdatos = res.json();
          swal(this.getdatos.nombre, this.getdatos.message, 'success');
-         this.buscarPago(this.pago.buscar);
+         this.buscarPago(this.select);
          this.loading = false;
          this.verDatos = true;
+         this.regPago = {};
+         this.abrirRealizarPago = false;
        },
        err => {
          this.errDatos = JSON.parse(err._body);
@@ -109,23 +108,21 @@ export class PagosComponent implements OnInit {
        }
    }
 
-   eliminarPago(select, data) {
-     this.data = { select, data };
+   eliminarPago(data) {
+     console.log(data);
      this.loading = true;
-     this.servicePagosService.eliminarPago(this.data)
+     this.servicePagosService.eliminarPago(data)
        .subscribe(res => {
          this.getdatos = res.json();
          swal(this.getdatos.nombre, this.getdatos.message, 'success');
-         this.buscarPago(this.pago.buscar);
+         this.buscarPago(this.select);
          this.loading = false;
-         this.verDatos = true;
        },
        err => {
          this.errDatos = JSON.parse(err._body);
          this.loading = false;
          swal(this.errDatos.nombre, this.errDatos.message, 'error');
          console.log(this.errDatos);
-         this.verDatos = false;
        });
 
    }

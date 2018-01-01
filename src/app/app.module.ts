@@ -31,6 +31,7 @@ import { MatriculaComponent } from './matricula/matricula.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ProfesorComponent } from './pagos/profesor/profesor.component';
 import { MovimientosComponent } from './movimientos/movimientos.component';
+import { VariosComponent } from './pagos/varios/varios.component';
 
 // services
 import { AuthService } from './auth.service';
@@ -41,6 +42,7 @@ import { ServiceMateriaService } from './materia/service-materia.service';
 import { ServiceMatriculaService } from './matricula/service-matricula.service';
 import { ServicePagosService } from './pagos/service-pagos.service';
 import { ServiceMovimientosService } from './movimientos/service-movimientos.service';
+import { ServiceDashboardService } from './dashboard/service-dashboard.service';
 
 
 
@@ -51,10 +53,6 @@ import { PipeProfesorPipe, filetCedulaProfesorPipe, filterCorreoProfesorPipe,
 import { FilterAlumnoPipe } from './alumno/filter-alumno.pipe';
 import { FilterMateriaPipe } from './materia/filter-materia.pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-
-
-
-
 
 
 const appRoutes: Routes = [
@@ -72,6 +70,7 @@ const appRoutes: Routes = [
   { path: 'Pagos', component: PagosComponent },
   { path: 'Pagos/Profesor', component: ProfesorComponent },
   { path: 'Movimientos', component: MovimientosComponent },
+  { path: 'Pagos/Varios', component: VariosComponent },
   { path: '', redirectTo: '/Login', pathMatch: 'full'},
 ];
 
@@ -101,7 +100,8 @@ const appRoutes: Routes = [
     MatriculaComponent,
     PagosComponent,
     ProfesorComponent,
-    MovimientosComponent
+    MovimientosComponent,
+    VariosComponent
     //  Select2Component
   ],
   imports: [
@@ -130,7 +130,8 @@ const appRoutes: Routes = [
     ServiceMateriaService,
     ServiceMatriculaService,
     ServicePagosService,
-    ServiceMovimientosService
+    ServiceMovimientosService,
+    ServiceDashboardService
   ],
   bootstrap: [AppComponent]
 })
